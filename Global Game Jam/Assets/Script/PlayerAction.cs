@@ -5,11 +5,11 @@ using UnityEngine;
 public class PlayerAction : MonoBehaviour
 {
     [SerializeField]
-    private float animationTime = 0.5f;
+    private float animationTime = 2f;
 
 
     [SerializeField]
-    private GameObject gameControllerObject, canvas;
+    private GameObject gameControllerObject;
 
     private float lastAnimation = 0.0f;
 
@@ -18,17 +18,13 @@ public class PlayerAction : MonoBehaviour
 
     private Vector3 positionWhenGetOut;
     private GameController gameController;
-    private dialogScript textContainter;
 
-    private GameObject memory;
 
-    public Transform memorySlot;
     // Start is called before the first frame update
     void Start()
     {
         rigidBody = GetComponent<Rigidbody>();
         gameController = gameControllerObject.GetComponent<GameController>();
-        textContainter = canvas.GetComponentInChildren<dialogScript>();
     }
 
     // Update is called once per frame
@@ -39,67 +35,49 @@ public class PlayerAction : MonoBehaviour
             lastAnimation -= Time.deltaTime;
         }
 
-        bool day = (DayNightController.Instance.GetCurrentTime() > 6) && (DayNightController.Instance.GetCurrentTime() < 18);
-        if (day)
+        if (Input.GetButton("Fire1") && lastAnimation <= 0.0f)
         {
-            if (Input.GetButtonUp("Fire1") && lastAnimation <= 0.0f)
+            Debug.Log("FIRE!");
+          
+
+            if (gameController.getIsHidden())
             {
-                Debug.Log("FIRE!");
+                lastAnimation = animationTime;
+                getOut();
+            }
+            else
+            {
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                RaycastHit hit;
 
-
-                if (gameController.getIsHidden())
+                if (Physics.Raycast(ray, out hit, 2))
                 {
-                    lastAnimation = animationTime;
-                    getOut();
-                }
-                else if (memory)
-                {
-                    Drop();
-                }
-                else
-                {
-                    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                    RaycastHit hit;
-
-                    if (Physics.Raycast(ray, out hit, 2))
+                    if (hit.transform.CompareTag("memories"))
                     {
-                        if (hit.transform.CompareTag("memories"))
-                        {
-                            lastAnimation = animationTime;
-                            PickUpObject(hit.transform.gameObject);
-                        }
-                        else if (hit.transform.CompareTag("hideout"))
-                        {
-                            lastAnimation = animationTime;
-                            Hide(hit.transform.gameObject);
-                        }
-                        else if (hit.transform.CompareTag("spot"))
-                        {
-                            lastAnimation = animationTime;
-                            Put(hit.transform.gameObject);
-                        }
+                        lastAnimation = animationTime;
+                        PickUpObject(hit.transform.gameObject);
+                    }
+                    else if (hit.transform.CompareTag("hideout"))
+                    {
+                        lastAnimation = animationTime;
+                        Hide(hit.transform.gameObject);
+                    }
+                    else if (hit.transform.CompareTag("spot"))
+                    {
+                        lastAnimation = animationTime;
+                        Put(hit.transform.gameObject);
                     }
                 }
             }
-
-        }
-        else
-        {
-            if (memory)
-            {
-                Drop();
-            }
         }
     }
+    
+    
     private void PickUpObject(GameObject objet)
     {
         Debug.Log("Try to pick an object");
-        memory = objet;
-        objet.transform.parent = memorySlot.transform;
-        objet.transform.localPosition = Vector3.zero;
         /*Move hand */
-        // objet.GetComponent<>().getPickUpText();
-        textContainter.setText("This is my best memory!");
+       // objet.GetComponent<>().getPickUpText();
     }
 
     private void Put(GameObject objet)
@@ -107,18 +85,8 @@ public class PlayerAction : MonoBehaviour
         Debug.Log("Put");
         /*Animation to hide*/
         // objet.GetComponent<>().getPutText();
-        memory.transform.parent = null;
-        memory.transform.position = transform.position;
     }
-    private void Drop()
-    {
-        Debug.Log("Drop");
-        /*Animation to hide*/
-        // objet.GetComponent<>().getPutText();
-        memory.transform.parent = null;
-        memory.transform.position = transform.position;
-        memory = null;
-    }
+
 
     private void Hide(GameObject objet)
     {
