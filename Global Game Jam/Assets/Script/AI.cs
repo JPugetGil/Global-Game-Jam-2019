@@ -17,8 +17,11 @@ public class AI : MonoBehaviour
     [SerializeField]
     private GameObject gameControllerObject;
 
+    public DayNightController dayNight;
+
     private NavMeshAgent agent;
     private GameController gameController;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,6 +31,7 @@ public class AI : MonoBehaviour
         bonusIA = 0;
         gameController = gameControllerObject.GetComponent<GameController>();
         agent = GetComponent<NavMeshAgent>();
+        DayNightController.Instance.AddNightObject(gameObject);
 
         print("Je suis né pour te hanter...");
     }
@@ -35,48 +39,47 @@ public class AI : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        Vector3 ghostPos = GameObject.FindGameObjectWithTag("ghost").transform.position;
-        Vector3 playerPos = GameObject.FindGameObjectWithTag("Player").transform.position;
 
-        Ray ray = new Ray(ghostPos, transform.forward);
-        Debug.DrawRay(ghostPos, transform.forward, Color.yellow);
 
-        // UPDATE THE DISTANCE
-        distanceWithPlayer = Vector3.Distance(ghostPos, playerPos);
+            Vector3 ghostPos = GameObject.FindGameObjectWithTag("ghost").transform.position;
+            Vector3 playerPos = GameObject.FindGameObjectWithTag("Player").transform.position;
 
-        if (!gameController.getIsHidden() && canSeeThePlayer(ray))
-        {
-            //UPDATE THE PROBABILITY
-            probability = updateProbability();
+            Ray ray = new Ray(ghostPos, transform.forward);
+            Debug.DrawRay(ghostPos, transform.forward, Color.yellow);
 
-            if (Random.Range(0, 1) <= probability)
+            // UPDATE THE DISTANCE
+            distanceWithPlayer = Vector3.Distance(ghostPos, playerPos);
+
+            if (!gameController.getIsHidden() && canSeeThePlayer(ray))
             {
-                Debug.Log("Je vais vers toi !");
-                agent.destination = playerPos;
-            }
-        }
-        else
-        {
-            transform.Rotate(new Vector3(0, rotationSpeed, 0));
+                //UPDATE THE PROBABILITY
+                probability = updateProbability();
 
-        }
+                if (Random.Range(0, 1) <= probability)
+                {
+                    agent.destination = playerPos;
+                }
+            }
+            else
+            {
+                transform.Rotate(new Vector3(0, rotationSpeed, 0));
+            }
+
+        
     }
 
     double updateProbability()
     {
         if (distanceWithPlayer < 4)
         {
-            Debug.Log("Proba: 1");
             return 1.0;
         }
         else if (distanceWithPlayer < 7.33)
         {
-            Debug.Log("Proba: " + probability);
             return (distanceWithPlayer / (-10)) + 1.4;
         }
         else
         {
-            Debug.Log("Proba: " + probability);
             return (distanceWithPlayer / (-4)) + 2.5;
         }
     }
@@ -86,13 +89,12 @@ public class AI : MonoBehaviour
         RaycastHit hit;
         if(Physics.Raycast(ray, out hit, 7.0F))
         {
-            Debug.Log("Je te vois !");
             return (hit.transform.CompareTag("Player"));
         }
-        Debug.Log("Je ne te vois pas !");
         return false;
     }
 
 
-    //EVENTS LISTENERS FOR DAYS AND NIGHTS
+    
+    
 } 
