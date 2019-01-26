@@ -12,6 +12,7 @@ public class DayNightController : MonoBehaviour {
 	public float startTime = 12.0f;
 	//what's the current time
 	float currentTime = 0.0f;
+	int currentDay = 1;
 	public string timeString = "00:00 AM";
 	//x rotation value of the light
 	private float xValueOfSun = 90.0f;
@@ -47,6 +48,7 @@ public class DayNightController : MonoBehaviour {
 		currentTime += Time.deltaTime*daySpeedMultiplier;
 		//reset time
 		if (currentTime >= 24.0f) {
+			currentDay += 1;
 			currentTime %= 24.0f;
 		}
 		//Check for sunlight
@@ -159,5 +161,13 @@ public class DayNightController : MonoBehaviour {
 
 	public void SetPaused(bool paused) {
 		this.paused = paused;
+	}
+
+	public void SetCurrentDay(int day) {
+		currentDay = day;
+	}
+
+	public int getCurrentDay() {
+		return currentDay;
 	}
 }
