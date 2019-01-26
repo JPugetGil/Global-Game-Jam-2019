@@ -31,6 +31,7 @@ public class AI : MonoBehaviour
         bonusIA = 0;
         gameController = gameControllerObject.GetComponent<GameController>();
         agent = GetComponent<NavMeshAgent>();
+        DayNightController.Instance.AddNightObject(gameObject);
 
         print("Je suis né pour te hanter...");
     }
@@ -38,13 +39,8 @@ public class AI : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (false) //CORRECT
-        {
-            //DEACTIVATE
-        }
-        else
-        {
-            //ACTIVATE
+
+
             Vector3 ghostPos = GameObject.FindGameObjectWithTag("ghost").transform.position;
             Vector3 playerPos = GameObject.FindGameObjectWithTag("Player").transform.position;
 
@@ -68,7 +64,6 @@ public class AI : MonoBehaviour
             {
                 transform.Rotate(new Vector3(0, rotationSpeed, 0));
             }
-        }
 
         
     }
