@@ -5,17 +5,16 @@ using TMPro;
 public class GameController : MonoBehaviour
 {
 
-	private static GameController _instance;
-
+    private static GameController _instance;
     public static GameController Instance { get { return _instance; } }
-
-
     private void Awake()
     {
         if (_instance != null && _instance != this)
         {
             Destroy(this.gameObject);
-        } else {
+        }
+        else
+        {
             _instance = this;
         }
     }
@@ -33,10 +32,12 @@ public class GameController : MonoBehaviour
     private bool isHidden = false;
 
     // Start is called before the first frame update
+    private int matchingMemoryCount;
 
-    Vector3 RandomPosition() {
-         Vector3 position = new Vector3(Random.Range(-10.0f, 10.0f), 0, Random.Range(-10.0f, 10.0f));
-         // check placement
+    Vector3 RandomPosition()
+    {
+        Vector3 position = new Vector3(Random.Range(-10.0f, 10.0f), 0, Random.Range(-10.0f, 10.0f));
+        // check placement
         return position;
     }
     void Start()
@@ -54,7 +55,7 @@ public class GameController : MonoBehaviour
             DayNightController.Instance.AddNightObject(nightMemory.gameObject);
         }
 
-                    centerText.enabled = false;
+        centerText.enabled = false;
 
     }
 
@@ -76,34 +77,41 @@ public class GameController : MonoBehaviour
         int min = (int)((DayNightController.Instance.GetCurrentTime() % 1) * 60);
         timeText.SetText(string.Format("Day: {0}, Time: {1}:{2}", DayNightController.Instance.getCurrentDay(), hour, min));
 
-        int matches = 0;
 
+        matchingMemoryCount = 0;
         for (int i = 0; i < memoryImages.Count; i++)
         {
             Vector3 dayPos = dayMemories[i].position;
             Vector3 nightPos = nightMemories[i].position;
             float distance = (dayPos - nightPos).magnitude;
-            if (distance < 2.0f) {
-                matches += 1;
+            if (distance < 2.0f)
+            {
+                matchingMemoryCount += 1;
             }
         }
 
-        if (matches == memoryImages.Count && DayNightController.Instance.getCurrentDay() < 5) {
+        if (matchingMemoryCount == memoryImages.Count && DayNightController.Instance.getCurrentDay() < 5)
+        {
             centerText.SetText("You Won!");
             centerText.enabled = true;
             Debug.Log("You Won!");
-        } else if (DayNightController.Instance.getCurrentDay() > 5) {
+        }
+        else if (DayNightController.Instance.getCurrentDay() > 5)
+        {
             centerText.SetText("You Lost!");
             centerText.enabled = true;
-             Debug.Log("Game Over!");
+            Debug.Log("Game Over!");
         }
     }
 
-    void EnableMemory(Transform memory, bool enable) {
-        foreach(Renderer renderer in memory.GetComponentsInChildren<Renderer>()) {
+    void EnableMemory(Transform memory, bool enable)
+    {
+        foreach (Renderer renderer in memory.GetComponentsInChildren<Renderer>())
+        {
             renderer.enabled = enable;
         }
-        foreach(Light light in memory.GetComponentsInChildren<Light>()) {
+        foreach (Light light in memory.GetComponentsInChildren<Light>())
+        {
             light.enabled = enable;
         }
 
@@ -128,5 +136,15 @@ public class GameController : MonoBehaviour
     public bool getIsHidden()
     {
         return isHidden;
+    }
+
+    public int getMatchingMemoryCount()
+    {
+        return matchingMemoryCount;
+    }
+
+    public int getMemoryCount()
+    {
+        return memoryImages.Count;
     }
 }
