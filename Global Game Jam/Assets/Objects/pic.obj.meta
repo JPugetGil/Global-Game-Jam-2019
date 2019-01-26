@@ -1,15 +1,16 @@
 fileFormatVersion: 2
-guid: 022ea3f6a01a6770bb155cf1e4443742
+guid: 3db208cc0e8e84ec297803005e957ccf
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
-    100000: //RootNode
-    400000: //RootNode
-    2100000: DefaultMaterial
-    2300000: //RootNode
-    3300000: //RootNode
-    4300000: floor_lamp
-    6400000: //RootNode
+    100000: default
+    100002: //RootNode
+    400000: default
+    400002: //RootNode
+    2100000: defaultMat
+    2300000: default
+    3300000: default
+    4300000: default
   externalObjects: {}
   materials:
     importMaterials: 0
@@ -43,7 +44,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
-    addColliders: 1
+    addColliders: 0
     useSRGBMaterialColor: 1
     importVisibility: 1
     importBlendShapes: 1
