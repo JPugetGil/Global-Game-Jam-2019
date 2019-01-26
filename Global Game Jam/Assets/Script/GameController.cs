@@ -1,12 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using TMPro;
 public class GameController : MonoBehaviour
 {
     public DayNightController dayNight;
 
-    bool day = true;
+    public TextMeshProUGUI text;
+
+    private List<Object> photos = new List<Object>();
+
     // Start is called before the first frame update
     void Start()
     {
@@ -16,20 +19,17 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (day) {
-            if (dayNight.GetCurrentTime() < 18) {
-                dayNight.SetCurrentTime(18);
-                dayNight.SetPaused(false);
-            } else if (dayNight.GetCurrentTime() > 19) {
-                day = false;
-            }
-        } else {
-            if (dayNight.GetCurrentTime() < 6  || dayNight.GetCurrentTime() < 24) {
-                dayNight.SetCurrentTime(6);
-                dayNight.SetPaused(false);
-            } else if (dayNight.GetCurrentTime() > 7) {
-                day = true;
-            }
-        }
+
+        int hour = (int)Mathf.Floor(dayNight.GetCurrentTime());
+        int min = (int)((dayNight.GetCurrentTime() % 1) * 60);
+        text.SetText(string.Format("Day: {0}, Time: {1}:{2}", dayNight.getCurrentDay(), hour, min));
+    }
+
+    void Sleep() {
+
+    }
+
+    void WakeUp() {
+        
     }
 }
