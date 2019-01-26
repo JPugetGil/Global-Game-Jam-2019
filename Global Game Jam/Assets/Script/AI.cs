@@ -66,10 +66,12 @@ public class AI : MonoBehaviour
     bool canSeeThePlayer(Ray ray)
     {
         RaycastHit hit;
-        Physics.Raycast(ray, out hit, 7.0F);
+        if(Physics.Raycast(ray, out hit, 7.0F))
+        {
+            return (hit.transform.CompareTag("Player"));
+        }
 
-        return (hit.transform.gameObject.tag == "player");
-    }
+        return false;    }
 
     bool goesOnPlayer()
     {

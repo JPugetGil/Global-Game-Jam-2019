@@ -11,6 +11,9 @@ public class MouseLook : MonoBehaviour
     private int maxYAxis = 90, minYAxis = 80;
 
     [SerializeField]
+    private int maxHiddenYAxis = 45, minHiddenYAxis = 45;
+
+    [SerializeField]
     private int maxHiddenXAxis = 45, minHiddenXAxis = 45;
 
     [SerializeField]
@@ -46,8 +49,10 @@ public class MouseLook : MonoBehaviour
         float valueConstrainedX = mouseLook.x;
         if (gameController.getIsHidden())
         {
-            valueConstrainedX = Mathf.Max(mouseLook.x, -maxHiddenXAxis);
+            valueConstrainedX = Mathf.Max(valueConstrainedX, -maxHiddenXAxis);
             valueConstrainedX = Mathf.Min(valueConstrainedX, minHiddenXAxis);
+            valueConstrainedY = Mathf.Max(valueConstrainedY, -maxHiddenYAxis);
+            valueConstrainedY = Mathf.Min(valueConstrainedY, minHiddenYAxis);
         }
 
         transform.localRotation = Quaternion.AngleAxis(valueConstrainedY, Vector3.right);
