@@ -8,17 +8,25 @@ public class GameController : MonoBehaviour
 
     public TextMeshProUGUI text;
 
-    private List<Object> memories = new List<Object>();
+    private List<Transform> memories = new List<Transform>();
     public Collider memoryPrefab;
 
+    public List<Texture2D> textures = new List<Texture2D>();
     // Start is called before the first frame update
     void Start()
     {
-        PlaceMemory();
+        for (int i = 0; i < textures.Count; i++) {
+            PlaceMemory(transform.position + new Vector3(i * 1.0f, 0.0f, 0.0f), textures[i]);
+        }
     }
 
-    void PlaceMemory() {
-        Collider memory = (Collider) Instantiate(memoryPrefab);
+    void PlaceMemory(Vector3 pos, Texture2D texture) {
+        Transform mem = (Transform) Instantiate(memoryPrefab).transform;
+        mem.transform.position = pos;
+        Renderer renderer = mem.Find("Frame").GetComponent<Renderer>();
+        renderer.material = Instantiate(renderer.material);
+        renderer.material.SetTexture("_MainTex", texture);
+        memories.Add(mem);
     }
 
     // Update is called once per frame
