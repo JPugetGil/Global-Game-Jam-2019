@@ -6,6 +6,7 @@ TagManager:
   tags:
   - hideout
   - memories
+  - ghost
   layers:
   - Default
   - TransparentFX

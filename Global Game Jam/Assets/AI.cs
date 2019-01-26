@@ -9,6 +9,8 @@ public class AI : MonoBehaviour
     private int bonusIA;
     private double distanceWithPlayer;
     private double probability;
+    private bool seeThePlayer;
+    private bool attack;
 
     // Start is called before the first frame update
     void Start()
@@ -16,27 +18,33 @@ public class AI : MonoBehaviour
         difficulty = 0;
         probability = 0;
         speed = 1;
+        bonusIA = 0;
+        seeThePlayer = false;
+        attack = false;
 
-        //CHECK THE DISTANCE BETWEEN THEM
-        distanceWithPlayer = 0;
         print("Je suis né pour te hanter...");
     }
 
     // Update is called once per frame
     void Update()
     {
+        Vector3 ghostPos = GameObject.FindGameObjectWithTag("ghost").transform.position;
+        Vector3 playerPos = GameObject.FindGameObjectWithTag("Player").transform.position;
+
+        Ray ray = new Ray(ghostPos, playerPos);
         // UPDATE THE DISTANCE
-        distanceWithPlayer = 0;
+        distanceWithPlayer = Vector3.Distance(ghostPos, playerPos);
 
         //UPDATE THE PROBABILITY
         updateProbability();
-    }
 
-    bool canSeeThePlayer()
-    {
-        //A COMPLETER
-        //BONUS IA
-        return true;
+        //UPDATE IF IT CAN SEE PLAYER
+
+        seeThePlayer = canSeeThePlayer(ray);
+
+        //UPDATE IF IT GOES ON THE PLAYER
+        attack = goesOnPlayer();
+
     }
 
     double updateProbability()
@@ -55,10 +63,17 @@ public class AI : MonoBehaviour
         }
     }
 
+    bool canSeeThePlayer(Ray ray)
+    {
+        RaycastHit hit;
+        Physics.Raycast(ray, out hit, 7.0F);
+
+        return (hit.transform.gameObject.tag == "player");
+    }
+
     bool goesOnPlayer()
     {
-        //A MODIFIER
-        return (canSeeThePlayer() && (probability > 0.5));
+        return (Random.Range(0, (float)probability) < probability);
     }
 
     //EVENTS LISTENERS FOR DAYS AND NIGHTS
