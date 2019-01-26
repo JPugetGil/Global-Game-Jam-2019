@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,7 +9,7 @@ public class PlayerAction : MonoBehaviour
 
 
     [SerializeField]
-    private GameObject gameControllerObject;
+    private GameObject gameControllerObject, canvas;
 
     private float lastAnimation = 0.0f;
 
@@ -18,6 +18,7 @@ public class PlayerAction : MonoBehaviour
 
     private Vector3 positionWhenGetOut;
     private GameController gameController;
+    private dialogScript textContainter;
 
     private GameObject memory;
 
@@ -27,6 +28,7 @@ public class PlayerAction : MonoBehaviour
     {
         rigidBody = GetComponent<Rigidbody>();
         gameController = gameControllerObject.GetComponent<GameController>();
+        textContainter = canvas.GetComponentInChildren<dialogScript>();
     }
 
     // Update is called once per frame
@@ -96,6 +98,7 @@ public class PlayerAction : MonoBehaviour
         objet.transform.localPosition = Vector3.zero;
         /*Move hand */
         // objet.GetComponent<>().getPickUpText();
+        textContainter.setText("This is my best memory!");
     }
 
     private void Put(GameObject objet)
