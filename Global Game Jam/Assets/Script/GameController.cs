@@ -8,6 +8,8 @@ public class GameController : MonoBehaviour
 
     public TextMeshProUGUI text;
 
+    private List<Object> photos = new List<Object>();
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,5 +23,13 @@ public class GameController : MonoBehaviour
         int hour = (int)Mathf.Floor(dayNight.GetCurrentTime());
         int min = (int)((dayNight.GetCurrentTime() % 1) * 60);
         text.SetText(string.Format("Day: {0}, Time: {1}:{2}", dayNight.getCurrentDay(), hour, min));
+    }
+
+    void Sleep() {
+
+    }
+
+    void WakeUp() {
+        
     }
 }
