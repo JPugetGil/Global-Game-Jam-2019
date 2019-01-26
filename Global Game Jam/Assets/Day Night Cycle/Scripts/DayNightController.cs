@@ -30,6 +30,8 @@ public class DayNightController : MonoBehaviour {
 	//camera to follow
 	public Camera cameraToFollow;
 
+	public bool paused;
+
  	// Use this for initialization
 	void Start () {
 		//set the start time
@@ -38,6 +40,9 @@ public class DayNightController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		if (paused)
+			return;
+
 		//increment time
 		currentTime += Time.deltaTime*daySpeedMultiplier;
 		//reset time
@@ -144,4 +149,15 @@ public class DayNightController : MonoBehaviour {
 
 	}
 
+	public float GetCurrentTime() {
+		return currentTime;
+	}
+
+	public void SetCurrentTime(float time) {
+		currentTime = time;
+	}
+
+	public void SetPaused(bool paused) {
+		this.paused = paused;
+	}
 }

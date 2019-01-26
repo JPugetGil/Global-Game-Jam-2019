@@ -4,14 +4,9 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
-    private float timeOfDay;
+    public DayNightController dayNight;
 
-
-    // how fast time of day changes
-    public float timeFactor = 1;
-
-    public Light lights;
-
+    bool day = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,8 +16,20 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        timeOfDay = (timeFactor * Time.time) % 24;
-
-        lights.intensity = Mathf.InverseLerp(0, 24, timeOfDay);
+        if (day) {
+            if (dayNight.GetCurrentTime() < 18) {
+                dayNight.SetCurrentTime(18);
+                dayNight.SetPaused(false);
+            } else if (dayNight.GetCurrentTime() > 19) {
+                day = false;
+            }
+        } else {
+            if (dayNight.GetCurrentTime() < 6  || dayNight.GetCurrentTime() < 24) {
+                dayNight.SetCurrentTime(6);
+                dayNight.SetPaused(false);
+            } else if (dayNight.GetCurrentTime() > 7) {
+                day = true;
+            }
+        }
     }
 }
