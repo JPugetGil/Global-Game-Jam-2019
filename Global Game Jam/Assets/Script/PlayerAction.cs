@@ -24,6 +24,7 @@ public class PlayerAction : MonoBehaviour
 
         if (Input.GetButton("Fire1") && lastAnimation <= 0.0f)
         {
+            Debug.Log("FIRE!");
             lastAnimation = animationTime;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
