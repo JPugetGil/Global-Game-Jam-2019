@@ -7,16 +7,24 @@ public class PlayerAction : MonoBehaviour
     [SerializeField]
     private float animationTime = 2f;
 
+
+    [SerializeField]
+    private GameObject gameControllerObject;
+
     private float lastAnimation = 0.0f;
 
     private bool isHidden = false;
     private Rigidbody rigidBody;
 
     private Vector3 positionWhenGetOut;
+    private GameController gameController;
+
+
     // Start is called before the first frame update
     void Start()
     {
         rigidBody = GetComponent<Rigidbody>();
+        gameController = gameControllerObject.GetComponent<GameController>();
     }
 
     // Update is called once per frame
@@ -30,28 +38,35 @@ public class PlayerAction : MonoBehaviour
         if (Input.GetButton("Fire1") && lastAnimation <= 0.0f)
         {
             Debug.Log("FIRE!");
-            lastAnimation = animationTime;
+          
 
-            if(isHidden)
+            if (gameController.getIsHidden())
             {
-
+                lastAnimation = animationTime;
+                getOut();
             }
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-
-            if (Physics.Raycast(ray, out hit, 100))
+            else
             {
-                if (hit.transform.CompareTag("memories"))
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                RaycastHit hit;
+
+                if (Physics.Raycast(ray, out hit, 2))
                 {
-                    PickUpObject(hit.transform.gameObject);
-                }
-                else if (hit.transform.CompareTag("hideout"))
-                {
-                    Hide(hit.transform.gameObject);
-                }
-                else if (hit.transform.CompareTag("spot"))
-                {
-                    Put(hit.transform.gameObject);
+                    if (hit.transform.CompareTag("memories"))
+                    {
+                        lastAnimation = animationTime;
+                        PickUpObject(hit.transform.gameObject);
+                    }
+                    else if (hit.transform.CompareTag("hideout"))
+                    {
+                        lastAnimation = animationTime;
+                        Hide(hit.transform.gameObject);
+                    }
+                    else if (hit.transform.CompareTag("spot"))
+                    {
+                        lastAnimation = animationTime;
+                        Put(hit.transform.gameObject);
+                    }
                 }
             }
         }
@@ -75,7 +90,7 @@ public class PlayerAction : MonoBehaviour
 
     private void Hide(GameObject objet)
     {
-        isHidden = true;
+        gameController.toggleHidden();
         //TODO stop moving
         //Ignore the collisions between layer 0 (default) and layer 8 (custom layer you set in Inspector window)
         Physics.IgnoreLayerCollision(9, 10);
@@ -90,10 +105,10 @@ public class PlayerAction : MonoBehaviour
 
     private void getOut()
     {
-        isHidden = false;
+        gameController.toggleHidden();
         Debug.Log("getOut");
         /*Animation to hide*/
-        Physics.IgnoreLayerCollision(9, 10);
-        transform.localPosition = positionWhenGetOut;
+        Physics.IgnoreLayerCollision(9, 10, false);
+        transform.position = positionWhenGetOut;
     }
 }
