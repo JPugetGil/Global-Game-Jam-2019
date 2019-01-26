@@ -71,7 +71,8 @@ public class AI : MonoBehaviour
             return (hit.transform.CompareTag("Player"));
         }
 
-        return false;    }
+        return false;
+    }
 
     bool goesOnPlayer()
     {
