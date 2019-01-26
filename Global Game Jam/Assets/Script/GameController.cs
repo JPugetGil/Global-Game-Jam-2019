@@ -8,19 +8,45 @@ public class GameController : MonoBehaviour
 
     public TextMeshProUGUI text;
 
-    private List<Object> memories = new List<Object>();
-    public Collider memoryPrefab;
+    private List<Transform> dayMemories = new List<Transform>();
+    public Collider dayMemoryPrefab;
 
+    private List<Transform> nightMemories = new List<Transform>();
+    public Collider nightMemoryPrefab;
+
+    public List<Texture2D> memoryImages = new List<Texture2D>();
+    public List<string> memoryText = new List<string>();
     private bool isHidden = false;
 
     // Start is called before the first frame update
+
+    Vector3 RandomPosition() {
+         Vector3 position = new Vector3(Random.Range(-10.0f, 10.0f), 0, Random.Range(-10.0f, 10.0f));
+         // check placement
+        return position;
+    }
     void Start()
     {
-        PlaceMemory();
+        for (int i = 0; i < memoryImages.Count; i++)
+        {
+            Transform dayMemory = (Transform)Instantiate(dayMemoryPrefab).transform;
+            PlaceMemory(dayMemory, transform.position + RandomPosition(), memoryImages[i]);
+            dayMemories.Add(dayMemory);
+
+            Transform nightMemory = (Transform)Instantiate(nightMemoryPrefab).transform;
+            PlaceMemory(nightMemory, transform.position + RandomPosition(), memoryImages[i]);
+            nightMemories.Add(nightMemory);
+        }
     }
 
-    void PlaceMemory() {
-        Collider memory = (Collider) Instantiate(memoryPrefab);
+    void PlaceMemory(Transform mem, Vector3 pos, Texture2D texture)
+    {
+
+        mem.transform.position = pos;
+        Renderer renderer = mem.Find("Frame").GetComponent<Renderer>();
+        renderer.material = Instantiate(renderer.material);
+        renderer.material.SetTexture("_MainTex", texture);
+
     }
 
     // Update is called once per frame
@@ -30,13 +56,55 @@ public class GameController : MonoBehaviour
         int hour = (int)Mathf.Floor(dayNight.GetCurrentTime());
         int min = (int)((dayNight.GetCurrentTime() % 1) * 60);
         text.SetText(string.Format("Day: {0}, Time: {1}:{2}", dayNight.getCurrentDay(), hour, min));
+
+        int matches = 0;
+
+        for (int i = 0; i < memoryImages.Count; i++)
+        {
+            Vector3 dayPos = dayMemories[i].position;
+            Vector3 nightPos = nightMemories[i].position;
+            float distance = (dayPos - nightPos).magnitude;
+            if (distance < 1.0f) {
+                matches += 1;
+            }
+        }
+
+        if (matches == memoryImages.Count && dayNight.getCurrentDay() < 5) {
+            Debug.Log("You Won!");
+        } else if (dayNight.getCurrentDay() > 5) {
+             Debug.Log("Game Over!");
+        }
+
+for (int i = 0; i < memoryImages.Count; i++)
+        {
+            bool day = (dayNight.GetCurrentTime() > 6) &&  (dayNight.GetCurrentTime() < 18);
+            dayMemories[i].gameObject.SetActive(day);
+            nightMemories[i].gameObject.SetActive(!day);
+        }
+
+
+
+
     }
 
-    void Sleep() {
-        
+    void EnableMemory(Transform memory, bool enable) {
+        foreach(Renderer renderer in memory.GetComponentsInChildren<Renderer>()) {
+            renderer.enabled = enable;
+        }
+        foreach(Light light in memory.GetComponentsInChildren<Light>()) {
+            light.enabled = enable;
+        }
+
+
     }
 
-    void WakeUp() {
+    void Sleep()
+    {
+
+    }
+
+    void WakeUp()
+    {
 
     }
 

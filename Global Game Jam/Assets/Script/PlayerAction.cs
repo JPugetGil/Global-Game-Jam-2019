@@ -20,7 +20,9 @@ public class PlayerAction : MonoBehaviour
     private GameController gameController;
     private dialogScript textContainter;
 
+    private GameObject memory;
 
+    public Transform memorySlot;
     // Start is called before the first frame update
     void Start()
     {
@@ -47,7 +49,9 @@ public class PlayerAction : MonoBehaviour
                 lastAnimation = animationTime;
                 getOut();
             }
-            else
+            else if (memory) {
+                Drop();
+            } else
             {
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 RaycastHit hit;
@@ -78,6 +82,9 @@ public class PlayerAction : MonoBehaviour
     private void PickUpObject(GameObject objet)
     {
         Debug.Log("Try to pick an object");
+        memory = objet;
+        objet.transform.parent = memorySlot.transform;
+        objet.transform.localPosition = Vector3.zero;
         /*Move hand */
         // objet.GetComponent<>().getPickUpText();
         textContainter.setText("This is my best memory!");
@@ -88,8 +95,18 @@ public class PlayerAction : MonoBehaviour
         Debug.Log("Put");
         /*Animation to hide*/
         // objet.GetComponent<>().getPutText();
+        memory.transform.parent = null;
+        memory.transform.position = transform.position;
     }
-
+    private void Drop()
+    {
+        Debug.Log("Put");
+        /*Animation to hide*/
+        // objet.GetComponent<>().getPutText();
+        memory.transform.parent = null;
+        memory.transform.position = transform.position;
+        memory = null;
+    }
 
     private void Hide(GameObject objet)
     {
