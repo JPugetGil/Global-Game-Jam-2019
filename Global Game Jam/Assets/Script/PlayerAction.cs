@@ -9,7 +9,7 @@ public class PlayerAction : MonoBehaviour
 
 
     [SerializeField]
-    private GameObject gameControllerObject;
+    private GameObject gameControllerObject, canvas;
 
     private float lastAnimation = 0.0f;
 
@@ -18,6 +18,7 @@ public class PlayerAction : MonoBehaviour
 
     private Vector3 positionWhenGetOut;
     private GameController gameController;
+    private dialogScript textContainter;
 
 
     // Start is called before the first frame update
@@ -25,6 +26,7 @@ public class PlayerAction : MonoBehaviour
     {
         rigidBody = GetComponent<Rigidbody>();
         gameController = gameControllerObject.GetComponent<GameController>();
+        textContainter = canvas.GetComponentInChildren<dialogScript>();
     }
 
     // Update is called once per frame
@@ -77,7 +79,8 @@ public class PlayerAction : MonoBehaviour
     {
         Debug.Log("Try to pick an object");
         /*Move hand */
-       // objet.GetComponent<>().getPickUpText();
+        // objet.GetComponent<>().getPickUpText();
+        textContainter.setText("This is my best memory!");
     }
 
     private void Put(GameObject objet)
