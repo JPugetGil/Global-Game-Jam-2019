@@ -21,6 +21,7 @@ public class AI : MonoBehaviour
 
     private NavMeshAgent agent;
     private GameController gameController;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -37,13 +38,13 @@ public class AI : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (dayNight.isDay())
+        if (false) //CORRECT
         {
-            gameControllerObject.SetActive(true);
+            //DEACTIVATE
         }
         else
         {
-            gameControllerObject.SetActive(true);
+            //ACTIVATE
             Vector3 ghostPos = GameObject.FindGameObjectWithTag("ghost").transform.position;
             Vector3 playerPos = GameObject.FindGameObjectWithTag("Player").transform.position;
 
@@ -60,7 +61,6 @@ public class AI : MonoBehaviour
 
                 if (Random.Range(0, 1) <= probability)
                 {
-                    Debug.Log("Je vais vers toi !");
                     agent.destination = playerPos;
                 }
             }
@@ -77,17 +77,14 @@ public class AI : MonoBehaviour
     {
         if (distanceWithPlayer < 4)
         {
-            Debug.Log("Proba: 1");
             return 1.0;
         }
         else if (distanceWithPlayer < 7.33)
         {
-            Debug.Log("Proba: " + probability);
             return (distanceWithPlayer / (-10)) + 1.4;
         }
         else
         {
-            Debug.Log("Proba: " + probability);
             return (distanceWithPlayer / (-4)) + 2.5;
         }
     }
@@ -97,10 +94,8 @@ public class AI : MonoBehaviour
         RaycastHit hit;
         if(Physics.Raycast(ray, out hit, 7.0F))
         {
-            Debug.Log("Je te vois !");
             return (hit.transform.CompareTag("Player"));
         }
-        Debug.Log("Je ne te vois pas !");
         return false;
     }
 
