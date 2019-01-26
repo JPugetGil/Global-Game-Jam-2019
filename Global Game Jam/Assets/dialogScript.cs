@@ -27,7 +27,7 @@ public class dialogScript : MonoBehaviour
     {
         if (active)
         {
-            Debug.Log(textTime);
+            //Debug.Log(textTime);
             if (textTime > 0)
             {
                 textTime -= Time.deltaTime;

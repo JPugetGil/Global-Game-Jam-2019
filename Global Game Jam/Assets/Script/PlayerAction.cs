@@ -1,11 +1,11 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerAction : MonoBehaviour
 {
     [SerializeField]
-    private float animationTime = 2f;
+    private float animationTime = 0.5f;
 
 
     [SerializeField]
@@ -34,15 +34,15 @@ public class PlayerAction : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (lastAnimation > 0)
+        {
+            lastAnimation -= Time.deltaTime;
+        }
+
         bool day = (DayNightController.Instance.GetCurrentTime() > 6) && (DayNightController.Instance.GetCurrentTime() < 18);
         if (day)
         {
-            if (lastAnimation > 0)
-            {
-                lastAnimation -= Time.deltaTime;
-            }
-
-            if (Input.GetButton("Fire1") && lastAnimation <= 0.0f)
+            if (Input.GetButtonUp("Fire1") && lastAnimation <= 0.0f)
             {
                 Debug.Log("FIRE!");
 
@@ -81,12 +81,13 @@ public class PlayerAction : MonoBehaviour
                     }
                 }
             }
-            else
+
+        }
+        else
+        {
+            if (memory)
             {
-                if (memory)
-                {
-                    Drop();
-                }
+                Drop();
             }
         }
     }
@@ -111,7 +112,7 @@ public class PlayerAction : MonoBehaviour
     }
     private void Drop()
     {
-        Debug.Log("Put");
+        Debug.Log("Drop");
         /*Animation to hide*/
         // objet.GetComponent<>().getPutText();
         memory.transform.parent = null;

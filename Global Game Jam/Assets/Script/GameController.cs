@@ -83,7 +83,7 @@ public class GameController : MonoBehaviour
             Vector3 dayPos = dayMemories[i].position;
             Vector3 nightPos = nightMemories[i].position;
             float distance = (dayPos - nightPos).magnitude;
-            if (distance < 1.0f) {
+            if (distance < 2.0f) {
                 matches += 1;
             }
         }
