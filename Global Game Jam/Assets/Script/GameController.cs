@@ -4,9 +4,23 @@ using UnityEngine;
 using TMPro;
 public class GameController : MonoBehaviour
 {
-    public DayNightController dayNight;
 
-    public TextMeshProUGUI text;
+	private static GameController _instance;
+
+    public static GameController Instance { get { return _instance; } }
+
+
+    private void Awake()
+    {
+        if (_instance != null && _instance != this)
+        {
+            Destroy(this.gameObject);
+        } else {
+            _instance = this;
+        }
+    }
+    public TextMeshProUGUI timeText;
+    public TextMeshProUGUI centerText;
 
     private List<Transform> dayMemories = new List<Transform>();
     public Collider dayMemoryPrefab;
@@ -32,11 +46,16 @@ public class GameController : MonoBehaviour
             Transform dayMemory = (Transform)Instantiate(dayMemoryPrefab).transform;
             PlaceMemory(dayMemory, transform.position + RandomPosition(), memoryImages[i]);
             dayMemories.Add(dayMemory);
+            DayNightController.Instance.AddDayObject(dayMemory.gameObject);
 
             Transform nightMemory = (Transform)Instantiate(nightMemoryPrefab).transform;
             PlaceMemory(nightMemory, transform.position + RandomPosition(), memoryImages[i]);
             nightMemories.Add(nightMemory);
+            DayNightController.Instance.AddNightObject(nightMemory.gameObject);
         }
+
+                    centerText.enabled = false;
+
     }
 
     void PlaceMemory(Transform mem, Vector3 pos, Texture2D texture)
@@ -53,9 +72,9 @@ public class GameController : MonoBehaviour
     void Update()
     {
 
-        int hour = (int)Mathf.Floor(dayNight.GetCurrentTime());
-        int min = (int)((dayNight.GetCurrentTime() % 1) * 60);
-        text.SetText(string.Format("Day: {0}, Time: {1}:{2}", dayNight.getCurrentDay(), hour, min));
+        int hour = (int)Mathf.Floor(DayNightController.Instance.GetCurrentTime());
+        int min = (int)((DayNightController.Instance.GetCurrentTime() % 1) * 60);
+        timeText.SetText(string.Format("Day: {0}, Time: {1}:{2}", DayNightController.Instance.getCurrentDay(), hour, min));
 
         int matches = 0;
 
@@ -69,22 +88,15 @@ public class GameController : MonoBehaviour
             }
         }
 
-        if (matches == memoryImages.Count && dayNight.getCurrentDay() < 5) {
+        if (matches == memoryImages.Count && DayNightController.Instance.getCurrentDay() < 5) {
+            centerText.SetText("You Won!");
+            centerText.enabled = true;
             Debug.Log("You Won!");
-        } else if (dayNight.getCurrentDay() > 5) {
+        } else if (DayNightController.Instance.getCurrentDay() > 5) {
+            centerText.SetText("You Lost!");
+            centerText.enabled = true;
              Debug.Log("Game Over!");
         }
-
-for (int i = 0; i < memoryImages.Count; i++)
-        {
-            bool day = (dayNight.GetCurrentTime() > 6) &&  (dayNight.GetCurrentTime() < 18);
-            dayMemories[i].gameObject.SetActive(day);
-            nightMemories[i].gameObject.SetActive(!day);
-        }
-
-
-
-
     }
 
     void EnableMemory(Transform memory, bool enable) {

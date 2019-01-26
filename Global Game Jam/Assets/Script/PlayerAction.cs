@@ -32,51 +32,62 @@ public class PlayerAction : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (lastAnimation > 0)
+        bool day = (DayNightController.Instance.GetCurrentTime() > 6) && (DayNightController.Instance.GetCurrentTime() < 18);
+        if (day)
         {
-            lastAnimation -= Time.deltaTime;
-        }
-
-        if (Input.GetButton("Fire1") && lastAnimation <= 0.0f)
-        {
-            Debug.Log("FIRE!");
-          
-
-            if (gameController.getIsHidden())
+            if (lastAnimation > 0)
             {
-                lastAnimation = animationTime;
-                getOut();
+                lastAnimation -= Time.deltaTime;
             }
-            else if (memory) {
-                Drop();
-            } else
-            {
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                RaycastHit hit;
 
-                if (Physics.Raycast(ray, out hit, 2))
+            if (Input.GetButton("Fire1") && lastAnimation <= 0.0f)
+            {
+                Debug.Log("FIRE!");
+
+
+                if (gameController.getIsHidden())
                 {
-                    if (hit.transform.CompareTag("memories"))
+                    lastAnimation = animationTime;
+                    getOut();
+                }
+                else if (memory)
+                {
+                    Drop();
+                }
+                else
+                {
+                    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                    RaycastHit hit;
+
+                    if (Physics.Raycast(ray, out hit, 2))
                     {
-                        lastAnimation = animationTime;
-                        PickUpObject(hit.transform.gameObject);
+                        if (hit.transform.CompareTag("memories"))
+                        {
+                            lastAnimation = animationTime;
+                            PickUpObject(hit.transform.gameObject);
+                        }
+                        else if (hit.transform.CompareTag("hideout"))
+                        {
+                            lastAnimation = animationTime;
+                            Hide(hit.transform.gameObject);
+                        }
+                        else if (hit.transform.CompareTag("spot"))
+                        {
+                            lastAnimation = animationTime;
+                            Put(hit.transform.gameObject);
+                        }
                     }
-                    else if (hit.transform.CompareTag("hideout"))
-                    {
-                        lastAnimation = animationTime;
-                        Hide(hit.transform.gameObject);
-                    }
-                    else if (hit.transform.CompareTag("spot"))
-                    {
-                        lastAnimation = animationTime;
-                        Put(hit.transform.gameObject);
-                    }
+                }
+            }
+            else
+            {
+                if (memory)
+                {
+                    Drop();
                 }
             }
         }
     }
-    
-    
     private void PickUpObject(GameObject objet)
     {
         Debug.Log("Try to pick an object");
@@ -84,7 +95,7 @@ public class PlayerAction : MonoBehaviour
         objet.transform.parent = memorySlot.transform;
         objet.transform.localPosition = Vector3.zero;
         /*Move hand */
-       // objet.GetComponent<>().getPickUpText();
+        // objet.GetComponent<>().getPickUpText();
     }
 
     private void Put(GameObject objet)
