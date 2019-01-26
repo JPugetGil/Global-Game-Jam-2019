@@ -98,7 +98,7 @@ public class PlayerAction : MonoBehaviour
         Debug.Log("Hide");
         /*Animation to hide*/
         positionWhenGetOut = transform.position;
-        transform.position = new Vector3(objetPosition.x, transform.position.y, objetPosition.z);
+        transform.position = new Vector3(objetPosition.x, objetPosition.y, objetPosition.z);
     }
 
 
