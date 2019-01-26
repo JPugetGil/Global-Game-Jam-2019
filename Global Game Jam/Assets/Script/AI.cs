@@ -64,20 +64,20 @@ public class AI : MonoBehaviour
 
     double updateProbability()
     {
-        if (distanceWithPlayer < 3)
+        if (distanceWithPlayer < 4)
         {
             Debug.Log("Proba: 1");
             return 1.0;
         }
-        else if (distanceWithPlayer < 3.67)
+        else if (distanceWithPlayer < 7.33)
         {
             Debug.Log("Proba: " + probability);
-            return (distanceWithPlayer / (-10)) + 1.2;
+            return (distanceWithPlayer / (-10)) + 1.4;
         }
         else
         {
             Debug.Log("Proba: " + probability);
-            return (distanceWithPlayer / (-4)) + 1.75;
+            return (distanceWithPlayer / (-4)) + 2.5;
         }
     }
 
