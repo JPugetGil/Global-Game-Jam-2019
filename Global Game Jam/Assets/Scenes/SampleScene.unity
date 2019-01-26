@@ -7139,6 +7139,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dayNight: {fileID: 1608334029}
   text: {fileID: 2069625830}
+  memoryPrefab: {fileID: 7676968395877287611, guid: f04d0db4c7899374c809129512454c87,
+    type: 3}
 --- !u!4 &1841920097 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: c9d856fac99568249a5bfaf5f7d645c8,

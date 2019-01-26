@@ -8,14 +8,19 @@ public class GameController : MonoBehaviour
 
     public TextMeshProUGUI text;
 
-    private List<Object> photos = new List<Object>();
+    private List<Object> memories = new List<Object>();
+    public Collider memoryPrefab;
 
     private bool isHidden = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        PlaceMemory();
+    }
+
+    void PlaceMemory() {
+        Collider memory = (Collider) Instantiate(memoryPrefab);
     }
 
     // Update is called once per frame
@@ -28,11 +33,11 @@ public class GameController : MonoBehaviour
     }
 
     void Sleep() {
-
+        
     }
 
     void WakeUp() {
-        
+
     }
 
     public void toggleHidden()
