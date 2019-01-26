@@ -10,6 +10,14 @@ public class MouseLook : MonoBehaviour
     [SerializeField]
     private int maxYAxis = 90, minYAxis = 80;
 
+    [SerializeField]
+    private int maxHiddenXAxis = 45, minHiddenXAxis = 45;
+
+    [SerializeField]
+    private GameObject gameControllerObject;
+
+    private GameController gameController;
+
     Vector2 mouseLook, smoothV;
 
     GameObject character;
@@ -17,6 +25,7 @@ public class MouseLook : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        gameController = gameControllerObject.GetComponent<GameController>();
         character = transform.parent.gameObject;
     }
 
@@ -31,12 +40,18 @@ public class MouseLook : MonoBehaviour
         mouseLook += smoothV;
 
         //We limit the player Y axis (think about his neck)
-        float valueConstrained = Mathf.Max(-mouseLook.y, -maxYAxis);
-        valueConstrained = Mathf.Min(valueConstrained, minYAxis);
+        float valueConstrainedY = Mathf.Max(-mouseLook.y, -maxYAxis);
+        valueConstrainedY = Mathf.Min(valueConstrainedY, minYAxis);
 
-        transform.localRotation = Quaternion.AngleAxis(valueConstrained, Vector3.right);
-        character.transform.localRotation = Quaternion.AngleAxis(mouseLook.x, character.transform.up);
+        float valueConstrainedX = mouseLook.x;
+        if (gameController.getIsHidden())
+        {
+            valueConstrainedX = Mathf.Max(mouseLook.x, -maxHiddenXAxis);
+            valueConstrainedX = Mathf.Min(valueConstrainedX, minHiddenXAxis);
+        }
 
-
+        transform.localRotation = Quaternion.AngleAxis(valueConstrainedY, Vector3.right);
+        character.transform.localRotation = Quaternion.AngleAxis(valueConstrainedX, character.transform.up);
     }
+
 }

@@ -10,6 +10,8 @@ public class GameController : MonoBehaviour
 
     private List<Object> photos = new List<Object>();
 
+    private bool isHidden = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -31,5 +33,15 @@ public class GameController : MonoBehaviour
 
     void WakeUp() {
         
+    }
+
+    public void toggleHidden()
+    {
+        isHidden = !isHidden;
+    }
+
+    public bool getIsHidden()
+    {
+        return isHidden;
     }
 }
