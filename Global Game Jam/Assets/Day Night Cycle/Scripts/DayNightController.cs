@@ -170,4 +170,9 @@ public class DayNightController : MonoBehaviour {
 	public int getCurrentDay() {
 		return currentDay;
 	}
+
+    public bool isDay()
+    {
+        return (currentTime >= 7.00f && currentTime <= 19.00f);
+    }
 }

@@ -8763,6 +8763,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotationSpeed: 3
   gameControllerObject: {fileID: 1839342991}
+  dayNight: {fileID: 1608334029}
 --- !u!23 &2111718144
 MeshRenderer:
   m_ObjectHideFlags: 0

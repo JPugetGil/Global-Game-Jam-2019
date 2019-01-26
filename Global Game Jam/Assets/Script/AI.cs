@@ -17,6 +17,8 @@ public class AI : MonoBehaviour
     [SerializeField]
     private GameObject gameControllerObject;
 
+    public DayNightController dayNight;
+
     private NavMeshAgent agent;
     private GameController gameController;
     // Start is called before the first frame update
@@ -35,31 +37,40 @@ public class AI : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        Vector3 ghostPos = GameObject.FindGameObjectWithTag("ghost").transform.position;
-        Vector3 playerPos = GameObject.FindGameObjectWithTag("Player").transform.position;
-
-        Ray ray = new Ray(ghostPos, transform.forward);
-        Debug.DrawRay(ghostPos, transform.forward, Color.yellow);
-
-        // UPDATE THE DISTANCE
-        distanceWithPlayer = Vector3.Distance(ghostPos, playerPos);
-
-        if (!gameController.getIsHidden() && canSeeThePlayer(ray))
+        if (dayNight.isDay())
         {
-            //UPDATE THE PROBABILITY
-            probability = updateProbability();
-
-            if (Random.Range(0, 1) <= probability)
-            {
-                Debug.Log("Je vais vers toi !");
-                agent.destination = playerPos;
-            }
+            gameControllerObject.SetActive(true);
         }
         else
         {
-            transform.Rotate(new Vector3(0, rotationSpeed, 0));
+            gameControllerObject.SetActive(true);
+            Vector3 ghostPos = GameObject.FindGameObjectWithTag("ghost").transform.position;
+            Vector3 playerPos = GameObject.FindGameObjectWithTag("Player").transform.position;
 
+            Ray ray = new Ray(ghostPos, transform.forward);
+            Debug.DrawRay(ghostPos, transform.forward, Color.yellow);
+
+            // UPDATE THE DISTANCE
+            distanceWithPlayer = Vector3.Distance(ghostPos, playerPos);
+
+            if (!gameController.getIsHidden() && canSeeThePlayer(ray))
+            {
+                //UPDATE THE PROBABILITY
+                probability = updateProbability();
+
+                if (Random.Range(0, 1) <= probability)
+                {
+                    Debug.Log("Je vais vers toi !");
+                    agent.destination = playerPos;
+                }
+            }
+            else
+            {
+                transform.Rotate(new Vector3(0, rotationSpeed, 0));
+            }
         }
+
+        
     }
 
     double updateProbability()
@@ -94,5 +105,6 @@ public class AI : MonoBehaviour
     }
 
 
-    //EVENTS LISTENERS FOR DAYS AND NIGHTS
+    
+    
 } 
