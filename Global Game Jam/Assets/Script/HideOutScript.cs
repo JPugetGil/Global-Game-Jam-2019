@@ -26,8 +26,6 @@ public class HideOutScript : MonoBehaviour
         {
             positionWhenHide = GetComponent<Renderer>().bounds.center;
             positionWhenHide.y = 0;
-            Debug.Log(positionWhenHide);
-
         }
     }
 
@@ -35,6 +33,10 @@ public class HideOutScript : MonoBehaviour
     public Vector3 getPositionWhenHide()
     {
         return positionWhenHide;
+    }
 
+    public HideOutType getHideOutType()
+    {
+       return hideOutType;
     }
 }
