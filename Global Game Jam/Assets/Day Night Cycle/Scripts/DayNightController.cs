@@ -127,13 +127,13 @@ public float ambientNight = 0.05f;
         if (controlIntensity && sunLight && (currentTime >= 18.0f || currentTime <= 5.5f))
         {
             sunLight.intensity = Mathf.MoveTowards(sunLight.intensity, 0.0f, Time.deltaTime * daySpeedMultiplier * 1.0f);
-            float r = Mathf.Max(ambientNight, sunLight.intensity);
+            float r = Mathf.Min(ambientDay, Mathf.Max(ambientNight, sunLight.intensity));
             RenderSettings.ambientLight = new Color(r, r, r);
         }
         else if (controlIntensity && sunLight)
         {
             sunLight.intensity = Mathf.MoveTowards(sunLight.intensity, 1.0f, Time.deltaTime * daySpeedMultiplier * 1.0f);
-            float r = Mathf.Min(ambientDay, sunLight.intensity);
+            float r = Mathf.Min(ambientDay, Mathf.Max(ambientNight, sunLight.intensity));
             RenderSettings.ambientLight = new Color(r, r, r);
         }
 
