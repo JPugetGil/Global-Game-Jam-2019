@@ -8,6 +8,7 @@ TagManager:
   - memories
   - ghost
   - cardboard
+  - memorySlot
   layers:
   - Default
   - TransparentFX

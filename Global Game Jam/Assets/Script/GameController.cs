@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System;
+
 public class GameController : MonoBehaviour
 {
 
@@ -34,23 +36,34 @@ public class GameController : MonoBehaviour
     // Start is called before the first frame update
     private int matchingMemoryCount;
 
+    private GameObject[] memorySlots;
+
     Vector3 RandomPosition()
     {
-        Vector3 position = new Vector3(Random.Range(-10.0f, 10.0f), 0, Random.Range(-10.0f, 10.0f));
+        Vector3 position = new Vector3(UnityEngine.Random.Range(-10.0f, 10.0f), 0, UnityEngine.Random.Range(-10.0f, 10.0f));
         // check placement
         return position;
     }
     void Start()
     {
-        for (int i = 0; i < memoryImages.Count; i++)
+        if (memorySlots == null)
+        {
+            memorySlots = GameObject.FindGameObjectsWithTag("memorySlot");
+            Debug.Log(String.Format("Found {0} memory slots.", memorySlots.Length));
+        }
+
+        int count = Math.Min(memorySlots.Length, memoryImages.Count);
+        for (int i = 0; i < count; i++)
         {
             Transform dayMemory = (Transform)Instantiate(dayMemoryPrefab).transform;
-            PlaceMemory(dayMemory, transform.position + RandomPosition(), memoryImages[i]);
+            SetTexture(dayMemory, memoryImages[i]);
+            memorySlots[i].GetComponent<MemorySlot>().SetDayMemory(dayMemory.gameObject);
             dayMemories.Add(dayMemory);
             DayNightController.Instance.AddDayObject(dayMemory.gameObject);
 
             Transform nightMemory = (Transform)Instantiate(nightMemoryPrefab).transform;
-            PlaceMemory(nightMemory, transform.position + RandomPosition(), memoryImages[i]);
+            nightMemory.transform.position = transform.position + RandomPosition();
+            SetTexture(nightMemory, memoryImages[i]);
             nightMemories.Add(nightMemory);
             DayNightController.Instance.AddNightObject(nightMemory.gameObject);
         }
@@ -59,14 +72,11 @@ public class GameController : MonoBehaviour
 
     }
 
-    void PlaceMemory(Transform mem, Vector3 pos, Texture2D texture)
+    void SetTexture(Transform mem, Texture2D texture)
     {
-
-        mem.transform.position = pos;
         Renderer renderer = mem.Find("Frame").GetComponent<Renderer>();
         renderer.material = Instantiate(renderer.material);
         renderer.material.SetTexture("_MainTex", texture);
-
     }
 
     // Update is called once per frame
@@ -94,13 +104,11 @@ public class GameController : MonoBehaviour
         {
             centerText.SetText("You Won!");
             centerText.enabled = true;
-            Debug.Log("You Won!");
         }
         else if (DayNightController.Instance.getCurrentDay() > 5)
         {
             centerText.SetText("You Lost!");
             centerText.enabled = true;
-            Debug.Log("Game Over!");
         }
     }
 
