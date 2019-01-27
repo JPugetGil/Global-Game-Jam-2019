@@ -5,10 +5,7 @@ using UnityEngine.AI;
 
 public class AI : MonoBehaviour
 {
-    private double speed;
     private double distanceWithPlayer;
-    private double probability;
-
 
     //LOOKING FOR THE PLAYER;
     private Vector3 dest;
@@ -28,15 +25,11 @@ public class AI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        probability = 0;
-        speed = 1;
-        
+
         gameController = gameControllerObject.GetComponent<GameController>();
         agent = GetComponent<NavMeshAgent>();
         DayNightController.Instance.AddNightObject(gameObject);
         lastPos = agent.transform.position;
-
-
 
         print("Je suis né pour te hanter...");
     }
@@ -44,12 +37,15 @@ public class AI : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-            Vector3 ghostPos = GameObject.FindGameObjectWithTag("ghost").transform.position;
-            Vector3 playerPos = GameObject.FindGameObjectWithTag("Player").transform.position;
 
-            Ray ray = new Ray(ghostPos, transform.forward);
+        agent.speed = 3 + 0.5f * GameController.Instance.getMatchingMemoryCount();
 
-            Debug.DrawRay(ghostPos, transform.forward, Color.yellow);
+        Vector3 ghostPos = GameObject.FindGameObjectWithTag("ghost").transform.position;
+        Vector3 playerPos = GameObject.FindGameObjectWithTag("Player").transform.position;
+
+        Ray ray = new Ray(ghostPos, transform.forward);
+
+        Debug.DrawRay(ghostPos, transform.forward, Color.yellow);
 
 
 
@@ -84,20 +80,6 @@ public class AI : MonoBehaviour
                 lastAnimation = waitTime;
             }
             
-            rotationSpeed = 3 + GameController.Instance.getMatchingMemoryCount() * 0.25f;
-            speed = 3 + GameController.Instance.getMatchingMemoryCount() * 0.15f;
-        }
-    }
-
-    double updateProbability()
-    {
-        if (distanceWithPlayer < 6)
-        {
-            return 1.0;
-        }
-        else 
-        {
-            return (distanceWithPlayer / (-16)) + 1.375;
         }
     }
 
