@@ -254,4 +254,21 @@ public float ambientNight = 0.05f;
     {
         dayObjects.Add(obj);
     }
+
+    public int getSpecificIndex(GameObject objet)
+    {
+        if (isDay())
+        {
+            return  dayObjects.IndexOf(objet);
+        }
+        else
+        {
+            return nightObjects.IndexOf(objet);
+        }
+    }
+
+    public bool isDay()
+    {
+        return (DayNightController.Instance.GetCurrentTime() > 6) && (DayNightController.Instance.GetCurrentTime() < 18);
+    }
 }

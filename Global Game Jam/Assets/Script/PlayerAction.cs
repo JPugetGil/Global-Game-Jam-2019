@@ -96,7 +96,10 @@ public class PlayerAction : MonoBehaviour
         objet.transform.localPosition = Vector3.zero;
         /*Move hand */
         // objet.GetComponent<>().getPickUpText();
-        textContainter.setText("This is my best memory!");
+
+
+        string text = gameController.memoryText[DayNightController.Instance.getSpecificIndex(objet)];
+        textContainter.setText(text);
     }
 
     private void Put(GameObject objet)
