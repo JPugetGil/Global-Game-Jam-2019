@@ -269,6 +269,6 @@ public float ambientNight = 0.05f;
 
     public bool isDay()
     {
-        return (DayNightController.Instance.GetCurrentTime() > 6) && (DayNightController.Instance.GetCurrentTime() < 18);
+        return (GetCurrentTime() > 6) && (GetCurrentTime() < 18);
     }
 }
