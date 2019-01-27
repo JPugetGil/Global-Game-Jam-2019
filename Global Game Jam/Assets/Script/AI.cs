@@ -48,25 +48,16 @@ public class AI : MonoBehaviour
             Vector3 playerPos = GameObject.FindGameObjectWithTag("Player").transform.position;
 
             Ray ray = new Ray(ghostPos, transform.forward);
-            Ray ray2 = new Ray(ghostPos, transform.right);
+
             Debug.DrawRay(ghostPos, transform.forward, Color.yellow);
-            Debug.DrawRay(ghostPos, transform.right, Color.yellow);
+
 
 
         // UPDATE THE DISTANCE
         distanceWithPlayer = Vector3.Distance(ghostPos, playerPos);
-        //Debug.Log("Can see : " + canSeeThePlayer(ray));
-        //Debug.Log("Is Hidden : " + gameController.getIsHidden());
-        if (!gameController.getIsHidden() && canSeeThePlayer(ray, ray2)) 
+        if (!gameController.getIsHidden()) 
         {
-            //UPDATE THE PROBABILITY
-            probability = updateProbability();
-
-            if (Random.Range(0.0f, 1.0f) <= probability)
-            {
-                agent.destination = playerPos;
-            }
-
+            agent.destination = playerPos;
         } else
         {
             // CHOISIR UNE DESTINATION DE MANIERE RANDOM
@@ -109,18 +100,6 @@ public class AI : MonoBehaviour
             return (distanceWithPlayer / (-16)) + 1.375;
         }
     }
-
-    bool canSeeThePlayer(Ray ray, Ray ray2)
-    {
-        RaycastHit hit;
-        if(Physics.Raycast(ray, out hit, 22.0F, 10) || Physics.Raycast(ray, out hit, 22.0F, 10))
-        { 
-            Debug.Log("I see: " + hit.transform.tag);
-            return (hit.transform.CompareTag("Player"));
-        }
-        return false;
-    }
- 
 
     Vector3 getRandomPosition()
     {

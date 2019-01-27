@@ -98,7 +98,7 @@ NavMeshSettings:
     serializedVersion: 2
     agentTypeID: 0
     agentRadius: 0.5
-    agentHeight: 2
+    agentHeight: 4
     agentSlope: 45
     agentClimb: 0.4
     ledgeDropHeight: 0
@@ -207,6 +207,14 @@ PrefabInstance:
     - target: {fileID: 100000, guid: e8816855f92cef449b18644dab1bdc86, type: 3}
       propertyPath: m_Name
       value: Shelf (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: e8816855f92cef449b18644dab1bdc86, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: e8816855f92cef449b18644dab1bdc86, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: e8816855f92cef449b18644dab1bdc86, type: 3}
       propertyPath: m_LocalPosition.x
@@ -350,6 +358,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bed (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 8691c39d2a8baf248b4b158185dc45f4, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 8691c39d2a8baf248b4b158185dc45f4, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 8691c39d2a8baf248b4b158185dc45f4, type: 3}
       propertyPath: m_LocalPosition.x
       value: -16.56
@@ -423,6 +439,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pillow (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: e59df08057799ba43b818cbf4a325a74, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: e59df08057799ba43b818cbf4a325a74, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: e59df08057799ba43b818cbf4a325a74, type: 3}
       propertyPath: m_LocalPosition.x
       value: -28.62
@@ -495,6 +519,14 @@ PrefabInstance:
     - target: {fileID: 100000, guid: e8816855f92cef449b18644dab1bdc86, type: 3}
       propertyPath: m_Name
       value: Shelf
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: e8816855f92cef449b18644dab1bdc86, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: e8816855f92cef449b18644dab1bdc86, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: e8816855f92cef449b18644dab1bdc86, type: 3}
       propertyPath: m_LocalPosition.x
@@ -729,36 +761,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2917742714533800454, guid: 545537e54fc50b845b769dec84edd153,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -60.65
-      objectReference: {fileID: 0}
-    - target: {fileID: 2917742715326198006, guid: 545537e54fc50b845b769dec84edd153,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 385.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2917742714724850662, guid: 545537e54fc50b845b769dec84edd153,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 385.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2917742714440139408, guid: 545537e54fc50b845b769dec84edd153,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 385.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2917742715061588237, guid: 545537e54fc50b845b769dec84edd153,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 280.37
-      objectReference: {fileID: 0}
-    - target: {fileID: 2917742715061588237, guid: 545537e54fc50b845b769dec84edd153,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -110.84
       objectReference: {fileID: 0}
     - target: {fileID: 2917742713575775421, guid: 545537e54fc50b845b769dec84edd153,
         type: 3}
@@ -1495,6 +1497,36 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 2917742714533800454, guid: 545537e54fc50b845b769dec84edd153,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -60.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 2917742715326198006, guid: 545537e54fc50b845b769dec84edd153,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 385.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2917742714724850662, guid: 545537e54fc50b845b769dec84edd153,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 385.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2917742714440139408, guid: 545537e54fc50b845b769dec84edd153,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 385.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2917742715061588237, guid: 545537e54fc50b845b769dec84edd153,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 280.37
+      objectReference: {fileID: 0}
+    - target: {fileID: 2917742715061588237, guid: 545537e54fc50b845b769dec84edd153,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -110.84
+      objectReference: {fileID: 0}
     - target: {fileID: 2917742715242869159, guid: 545537e54fc50b845b769dec84edd153,
         type: 3}
       propertyPath: m_Size.z
@@ -1808,6 +1840,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Carpet (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: ae102d8dd4387ea45a7819113ff4f25b, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: ae102d8dd4387ea45a7819113ff4f25b, type: 3}
       propertyPath: m_LocalPosition.x
       value: -17.79
@@ -1912,6 +1948,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pillow
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: e59df08057799ba43b818cbf4a325a74, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: e59df08057799ba43b818cbf4a325a74, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: e59df08057799ba43b818cbf4a325a74, type: 3}
       propertyPath: m_LocalPosition.x
       value: -28.62
@@ -1984,6 +2028,14 @@ PrefabInstance:
     - target: {fileID: 100000, guid: e59df08057799ba43b818cbf4a325a74, type: 3}
       propertyPath: m_Name
       value: Pillow (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: e59df08057799ba43b818cbf4a325a74, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: e59df08057799ba43b818cbf4a325a74, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: e59df08057799ba43b818cbf4a325a74, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2127,6 +2179,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Shelf (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: e8816855f92cef449b18644dab1bdc86, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: e8816855f92cef449b18644dab1bdc86, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: e8816855f92cef449b18644dab1bdc86, type: 3}
       propertyPath: m_LocalPosition.x
       value: -18.64
@@ -2200,6 +2260,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Shelf (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: e8816855f92cef449b18644dab1bdc86, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: e8816855f92cef449b18644dab1bdc86, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: e8816855f92cef449b18644dab1bdc86, type: 3}
       propertyPath: m_LocalPosition.x
       value: -11.77
@@ -2272,6 +2340,14 @@ PrefabInstance:
     - target: {fileID: 100000, guid: f147a43c287242f4cae27aeadbf7982e, type: 3}
       propertyPath: m_Name
       value: Armoire (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: f147a43c287242f4cae27aeadbf7982e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: f147a43c287242f4cae27aeadbf7982e, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: f147a43c287242f4cae27aeadbf7982e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2350,6 +2426,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Plant
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 3575062b3419fb444b2eddc53792f493, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 3575062b3419fb444b2eddc53792f493, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 3575062b3419fb444b2eddc53792f493, type: 3}
       propertyPath: m_LocalPosition.x
       value: -28.38
@@ -2427,6 +2511,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Armoire
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: f147a43c287242f4cae27aeadbf7982e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: f147a43c287242f4cae27aeadbf7982e, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: f147a43c287242f4cae27aeadbf7982e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -26.43
@@ -2503,6 +2595,14 @@ PrefabInstance:
     - target: {fileID: 100000, guid: ae102d8dd4387ea45a7819113ff4f25b, type: 3}
       propertyPath: m_Name
       value: Carpet
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: ae102d8dd4387ea45a7819113ff4f25b, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: ae102d8dd4387ea45a7819113ff4f25b, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: ae102d8dd4387ea45a7819113ff4f25b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2785,6 +2885,14 @@ PrefabInstance:
     - target: {fileID: 100000, guid: 4c0e25cc5232dd044b585bc3028e9c66, type: 3}
       propertyPath: m_Name
       value: "T\xE9l\xE9vision"
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 4c0e25cc5232dd044b585bc3028e9c66, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 4c0e25cc5232dd044b585bc3028e9c66, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 4c0e25cc5232dd044b585bc3028e9c66, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3368,6 +3476,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Armoire (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: f147a43c287242f4cae27aeadbf7982e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: f147a43c287242f4cae27aeadbf7982e, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: f147a43c287242f4cae27aeadbf7982e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -29.22
@@ -3543,6 +3659,14 @@ PrefabInstance:
     - target: {fileID: 100000, guid: 80dadf59c9de1c9499d1f747dd86937d, type: 3}
       propertyPath: m_Name
       value: Desk
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 80dadf59c9de1c9499d1f747dd86937d, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 80dadf59c9de1c9499d1f747dd86937d, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 80dadf59c9de1c9499d1f747dd86937d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3745,6 +3869,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Carpet (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: ae102d8dd4387ea45a7819113ff4f25b, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: ae102d8dd4387ea45a7819113ff4f25b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 19.61
@@ -3883,6 +4011,14 @@ PrefabInstance:
     - target: {fileID: 100000, guid: ae102d8dd4387ea45a7819113ff4f25b, type: 3}
       propertyPath: m_Name
       value: Carpet (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: ae102d8dd4387ea45a7819113ff4f25b, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: ae102d8dd4387ea45a7819113ff4f25b, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: ae102d8dd4387ea45a7819113ff4f25b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4316,6 +4452,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Armoire (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: f147a43c287242f4cae27aeadbf7982e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: f147a43c287242f4cae27aeadbf7982e, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: f147a43c287242f4cae27aeadbf7982e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 29.03
@@ -4553,6 +4697,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Shelf (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: e8816855f92cef449b18644dab1bdc86, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: e8816855f92cef449b18644dab1bdc86, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: e8816855f92cef449b18644dab1bdc86, type: 3}
       propertyPath: m_LocalPosition.x
       value: 19.3
@@ -4625,6 +4777,14 @@ PrefabInstance:
     - target: {fileID: 100000, guid: 8691c39d2a8baf248b4b158185dc45f4, type: 3}
       propertyPath: m_Name
       value: Bed
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 8691c39d2a8baf248b4b158185dc45f4, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 8691c39d2a8baf248b4b158185dc45f4, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 8691c39d2a8baf248b4b158185dc45f4, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4894,7 +5054,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 038ab604388fbb74f899b5da263673da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSpeed: 3
+  rotationSpeed: 4
   gameControllerObject: {fileID: 1839342991}
 --- !u!23 &2111718144
 MeshRenderer:
@@ -4951,7 +5111,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 3
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -4974,6 +5134,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Armoire
+      objectReference: {fileID: 0}
+    - target: {fileID: 2447996935521596673, guid: 424f507a0d6a5be41aef63230ef4607f,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2447996935521596673, guid: 424f507a0d6a5be41aef63230ef4607f,
+        type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2447996935521596677, guid: 424f507a0d6a5be41aef63230ef4607f,
         type: 3}
