@@ -4,6 +4,11 @@ using UnityEngine;
 using TMPro;
 using System;
 
+static class RandomExtensions
+{
+
+};
+
 public class GameController : MonoBehaviour
 {
 
@@ -32,11 +37,15 @@ public class GameController : MonoBehaviour
     public List<Texture2D> memoryImages = new List<Texture2D>();
     public List<string> memoryText = new List<string>();
     private bool isHidden = false;
+    private bool isDay = false;
 
     // Start is called before the first frame update
     private int matchingMemoryCount;
 
     private GameObject[] memorySlots;
+
+    public GameObject player;
+    public GameObject spawnPoint;
 
     Vector3 RandomPosition()
     {
@@ -44,11 +53,25 @@ public class GameController : MonoBehaviour
         // check placement
         return position;
     }
+
+    public void Shuffle<T> (System.Random rng, T[] array)
+    {
+        int n = array.Length;
+        while (n > 1) 
+        {
+            int k = rng.Next(n--);
+            T temp = array[n];
+            array[n] = array[k];
+            array[k] = temp;
+        }
+    }
+
     void Start()
     {
         if (memorySlots == null)
         {
             memorySlots = GameObject.FindGameObjectsWithTag("memorySlot");
+            Shuffle(new System.Random(), memorySlots);
             Debug.Log(String.Format("Found {0} memory slots.", memorySlots.Length));
         }
 
@@ -69,6 +92,7 @@ public class GameController : MonoBehaviour
         }
 
         centerText.enabled = false;
+        isDay = DayNightController.Instance.isDay();
 
     }
 
@@ -83,22 +107,36 @@ public class GameController : MonoBehaviour
     void Update()
     {
 
-        int hour = (int)Mathf.Floor(DayNightController.Instance.GetCurrentTime());
-        int min = (int)((DayNightController.Instance.GetCurrentTime() % 1) * 60);
-        timeText.SetText(string.Format("Day: {0}, Time: {1}:{2}", DayNightController.Instance.getCurrentDay(), hour, min));
 
 
         matchingMemoryCount = 0;
-        for (int i = 0; i < memoryImages.Count; i++)
+
+        foreach (GameObject slot in memorySlots)
         {
-            Vector3 dayPos = dayMemories[i].position;
-            Vector3 nightPos = nightMemories[i].position;
-            float distance = (dayPos - nightPos).magnitude;
-            if (distance < 2.0f)
+            MemorySlot memslot = slot.GetComponent<MemorySlot>();
+            if (memslot.GetDayMemory())
             {
-                matchingMemoryCount += 1;
+                if (memslot.IsMatched())
+                {
+                    matchingMemoryCount++;
+                }
             }
         }
+
+        int hour = (int)Mathf.Floor(DayNightController.Instance.GetCurrentTime());
+        int min = (int)((DayNightController.Instance.GetCurrentTime() % 1) * 60);
+        timeText.SetText(string.Format("Day: {0}, Time: {1}:{2} - {3}/{4}", DayNightController.Instance.getCurrentDay(), hour, min, matchingMemoryCount, memoryImages.Count));
+
+        // for (int i = 0; i < memoryImages.Count; i++)
+        // {
+        //     Vector3 dayPos = dayMemories[i].position;
+        //     Vector3 nightPos = nightMemories[i].position;
+        //     float distance = (dayPos - nightPos).magnitude;
+        //     if (distance < 2.0f)
+        //     {
+        //         matchingMemoryCount += 1;
+        //     }
+        // }
 
         if (matchingMemoryCount == memoryImages.Count && DayNightController.Instance.getCurrentDay() < 5)
         {
@@ -109,6 +147,21 @@ public class GameController : MonoBehaviour
         {
             centerText.SetText("You Lost!");
             centerText.enabled = true;
+        }
+
+        bool day = DayNightController.Instance.isDay();
+        if (day != isDay)
+        {
+            if (day)
+            {
+                StartDay();
+
+            }
+            else
+            {
+                StartNight();
+            }
+            isDay = day;
         }
     }
 
@@ -154,5 +207,27 @@ public class GameController : MonoBehaviour
     public int getMemoryCount()
     {
         return memoryImages.Count;
+    }
+
+    public void StartDay()
+    {
+        Spawn();
+    }
+
+    public void StartNight()
+    {
+        Spawn();
+    }
+
+    public void Spawn()
+    {
+        player.transform.position = spawnPoint.transform.position;
+        player.transform.rotation = spawnPoint.transform.rotation;
+
+        ParticleSystem[] ps = spawnPoint.transform.GetComponentsInChildren<ParticleSystem>(true);
+        for (int i = 0; i < ps.Length; i++)
+        {
+            ps[i].Play();
+        };
     }
 }
