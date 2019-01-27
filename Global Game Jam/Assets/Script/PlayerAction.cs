@@ -48,7 +48,7 @@ public class PlayerAction : MonoBehaviour
             Drop();
         }
 
-       
+
         if (Input.GetButtonUp("Fire1") && lastAnimation <= 0.0f)
         {
             Debug.Log("FIRE!");
@@ -94,19 +94,20 @@ public class PlayerAction : MonoBehaviour
                             PickUpCardboard(hit.transform.gameObject);
                         }
                     }
-                    else
-                    {
-                        if (!day && memory)
-                        {
-                            Drop();
-                        }
-                    }
                 }
+            }
+        }
+
+        if (Input.GetButtonUp("Fire2"))
+        {
+            if (!day && memory)
+            {
+                Drop();
             }
         }
     }
 
-    private void PickUpObject(GameObject objet)
+        private void PickUpObject(GameObject objet)
     {
         Debug.Log("Try to pick an object");
         memory = objet;
