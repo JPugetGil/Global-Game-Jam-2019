@@ -87,7 +87,7 @@ public class PlayerAction : MonoBehaviour
                         }
                         else if (hit.transform.CompareTag("hideout"))
                         {
-                            if(memory || cardboard)
+                            if (memory || cardboard)
                             {
                                 Drop();
                             }
@@ -98,6 +98,11 @@ public class PlayerAction : MonoBehaviour
                         {
                             lastAnimation = animationTime;
                             PickUpCardboard(hit.transform.gameObject);
+                        }
+                        else if (hit.transform.CompareTag("bed"))
+                        {
+                            lastAnimation = animationTime;
+                            GameController.Instance.Forward();
                         }
                     }
                 }

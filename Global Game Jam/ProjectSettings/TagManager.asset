@@ -9,6 +9,8 @@ TagManager:
   - ghost
   - cardboard
   - memorySlot
+  - FxTemporaire
+  - bed
   layers:
   - Default
   - TransparentFX

@@ -240,7 +240,7 @@ public float ambientNight = 0.05f;
         currentDay = day;
     }
 
-    public int getCurrentDay()
+    public int GetCurrentDay()
     {
         return currentDay;
     }
