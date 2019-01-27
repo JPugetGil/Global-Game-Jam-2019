@@ -5,11 +5,17 @@ using UnityEngine.AI;
 
 public class AI : MonoBehaviour
 {
-    private int difficulty;
     private double speed;
-    private int bonusIA;
     private double distanceWithPlayer;
     private double probability;
+
+
+    //LOOKING FOR THE PLAYER;
+    private Vector3 dest;
+    private Vector3 lastPos;
+    private float waitTime = 1.5f;
+    private float lastAnimation = 0.0f;
+
 
     [SerializeField]
     private float rotationSpeed = 3;
@@ -17,21 +23,19 @@ public class AI : MonoBehaviour
     [SerializeField]
     private GameObject gameControllerObject;
 
-    public DayNightController dayNight;
-
     private NavMeshAgent agent;
     private GameController gameController;
-
+    
     // Start is called before the first frame update
     void Start()
     {
-        difficulty = 0;
         probability = 0;
         speed = 1;
-        bonusIA = 0;
+        
         gameController = gameControllerObject.GetComponent<GameController>();
         agent = GetComponent<NavMeshAgent>();
         DayNightController.Instance.AddNightObject(gameObject);
+        lastPos = agent.transform.position;
 
         print("Je suis né pour te hanter...");
     }
@@ -48,24 +52,43 @@ public class AI : MonoBehaviour
             // UPDATE THE DISTANCE
             distanceWithPlayer = Vector3.Distance(ghostPos, playerPos);
 
-            if (!gameController.getIsHidden() && canSeeThePlayer(ray))
-            {
-                //UPDATE THE PROBABILITY
-                probability = updateProbability();
+        if (!gameController.getIsHidden() && canSeeThePlayer(ray))
+        {
+            //UPDATE THE PROBABILITY
+            probability = updateProbability();
 
-                if (Random.Range(0, 1) <= probability)
+            if (Random.Range(0, 1) <= probability)
+            {
+                agent.destination = playerPos;
+            }
+        } else
+        {
+            // CHOISIR UNE DESTINATION DE MANIERE RANDOM
+            transform.Rotate(new Vector3(0, rotationSpeed, 0));
+            if (lastPos == ghostPos)
+            { 
+                if (lastAnimation <= 0)
                 {
-                    agent.destination = playerPos;
+                    dest = getRandomPosition(); 
+                    if (NavMesh.SamplePosition(dest, out NavMeshHit hit, 25f, NavMesh.AllAreas))
+                    {
+                        agent.destination = hit.position;
+                        lastAnimation = waitTime;
+                    }
+                } else
+                {
+                    lastAnimation -= Time.deltaTime;
                 }
             }
             else
             {
-                // CHOISIR UNE DESTINATION DE MANIERE RANDOM OU NAVIGUER SUR LA CARTE
-                transform.Rotate(new Vector3(0, rotationSpeed, 0));
-            }
+                lastPos = ghostPos;
+                lastAnimation = waitTime;
+            } 
 
-            rotationSpeed = 3 + GameController.Instance.getMatchingMemoryCount()*0.25f;
+            rotationSpeed = 3 + GameController.Instance.getMatchingMemoryCount() * 0.25f;
             speed = 3 + GameController.Instance.getMatchingMemoryCount() * 0.15f;
+        }
     }
 
     double updateProbability()
@@ -94,4 +117,9 @@ public class AI : MonoBehaviour
         return false;
     }
  
+
+    Vector3 getRandomPosition()
+    {
+        return Random.insideUnitCircle * 25;
+    }
 } 
