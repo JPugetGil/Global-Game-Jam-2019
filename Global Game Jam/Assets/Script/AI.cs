@@ -25,13 +25,10 @@ public class AI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
         gameController = gameControllerObject.GetComponent<GameController>();
         agent = GetComponent<NavMeshAgent>();
         DayNightController.Instance.AddNightObject(gameObject);
         lastPos = agent.transform.position;
-
-        print("Je suis né pour te hanter...");
     }
 
     // Update is called once per frame
@@ -44,10 +41,7 @@ public class AI : MonoBehaviour
         Vector3 playerPos = GameObject.FindGameObjectWithTag("Player").transform.position;
 
         Ray ray = new Ray(ghostPos, transform.forward);
-
         Debug.DrawRay(ghostPos, transform.forward, Color.yellow);
-
-
 
         // UPDATE THE DISTANCE
         distanceWithPlayer = Vector3.Distance(ghostPos, playerPos);
