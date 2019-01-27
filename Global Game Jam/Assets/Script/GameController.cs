@@ -54,10 +54,10 @@ public class GameController : MonoBehaviour
         return position;
     }
 
-    public void Shuffle<T> (System.Random rng, T[] array)
+    public void Shuffle<T>(System.Random rng, T[] array)
     {
         int n = array.Length;
-        while (n > 1) 
+        while (n > 1)
         {
             int k = rng.Next(n--);
             T temp = array[n];
@@ -125,7 +125,7 @@ public class GameController : MonoBehaviour
 
         int hour = (int)Mathf.Floor(DayNightController.Instance.GetCurrentTime());
         int min = (int)((DayNightController.Instance.GetCurrentTime() % 1) * 60);
-        timeText.SetText(string.Format("Day: {0}, Time: {1}:{2} - {3}/{4}", DayNightController.Instance.getCurrentDay(), hour, min, matchingMemoryCount, memoryImages.Count));
+        timeText.SetText(string.Format("Day: {0}, Time: {1}:{2} - {3}/{4}", DayNightController.Instance.GetCurrentDay(), hour, min, matchingMemoryCount, memoryImages.Count));
 
         // for (int i = 0; i < memoryImages.Count; i++)
         // {
@@ -138,12 +138,12 @@ public class GameController : MonoBehaviour
         //     }
         // }
 
-        if (matchingMemoryCount == memoryImages.Count && DayNightController.Instance.getCurrentDay() < 5)
+        if (matchingMemoryCount == memoryImages.Count && DayNightController.Instance.GetCurrentDay() < 5)
         {
             centerText.SetText("You Won!");
             centerText.enabled = true;
         }
-        else if (DayNightController.Instance.getCurrentDay() > 5)
+        else if (DayNightController.Instance.GetCurrentDay() > 5)
         {
             centerText.SetText("You Lost!");
             centerText.enabled = true;
@@ -209,14 +209,32 @@ public class GameController : MonoBehaviour
         return memoryImages.Count;
     }
 
+    public void Forward() {
+        if (isDay) {
+            StartNight();
+        } else {
+            StartDay();
+        }
+    }
     public void StartDay()
     {
-        Spawn();
+        if (!isDay)
+        {
+            if (DayNightController.Instance.GetCurrentTime() > 18) {
+                DayNightController.Instance.SetCurrentDay(DayNightController.Instance.GetCurrentDay() + 1);
+            }
+            DayNightController.Instance.SetCurrentTime(6);
+            Spawn();
+        }
     }
 
     public void StartNight()
     {
-        Spawn();
+        if (isDay)
+        {
+            DayNightController.Instance.SetCurrentTime(18);
+            Spawn();
+        }
     }
 
     public void Spawn()
@@ -227,7 +245,15 @@ public class GameController : MonoBehaviour
         ParticleSystem[] ps = spawnPoint.transform.GetComponentsInChildren<ParticleSystem>(true);
         for (int i = 0; i < ps.Length; i++)
         {
-            ps[i].Play();
+            ps[i].gameObject.SetActive(false);
+            ps[i].gameObject.SetActive(true);
+            ps[i].Play(true);
+            // ps[i].Stop(true);
+            //ps[i].Clear(true);
+            //ps[i].emission.enabled = false;
+            //ps[i].Simulate(0.0f, true, true);
+            //ps[i].emission.enabled = true;
+            //ps[i].Play(true);
         };
     }
 }
