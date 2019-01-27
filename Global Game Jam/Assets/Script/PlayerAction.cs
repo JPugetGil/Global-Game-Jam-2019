@@ -24,6 +24,8 @@ public class PlayerAction : MonoBehaviour
     private GameObject cardboard;
 
     public Transform memorySlot;
+
+    private Camera activeCamera;
     // Start is called before the first frame update
     void Start()
     {
@@ -85,6 +87,10 @@ public class PlayerAction : MonoBehaviour
                         }
                         else if (hit.transform.CompareTag("hideout"))
                         {
+                            if(memory || cardboard)
+                            {
+                                Drop();
+                            }
                             lastAnimation = animationTime;
                             Hide(hit.transform.gameObject);
                         }
@@ -107,7 +113,7 @@ public class PlayerAction : MonoBehaviour
         }
     }
 
-        private void PickUpObject(GameObject objet)
+    private void PickUpObject(GameObject objet)
     {
         Debug.Log("Try to pick an object");
         memory = objet;
@@ -127,6 +133,7 @@ public class PlayerAction : MonoBehaviour
         objet.transform.parent = memorySlot.transform;
         objet.transform.position = Vector3.zero;
     }
+
     private void Drop()
     {
         Debug.Log("Drop");
@@ -143,7 +150,7 @@ public class PlayerAction : MonoBehaviour
         /*Animation to hide*/
         // objet.GetComponent<>().getPutText();
         if (objet.GetComponent<MemorySlot>().SetNightMemory(memory))
-            {
+        {
             memory = null;
         }
     }
@@ -166,15 +173,25 @@ public class PlayerAction : MonoBehaviour
         Physics.IgnoreLayerCollision(9, 10);
         Vector3 objetPosition = objet.GetComponent<HideOutScript>().getPositionWhenHide();
         Debug.Log("Hide");
-        /*Animation to hide*/
+
         positionWhenGetOut = transform.position;
         transform.position = new Vector3(objetPosition.x, objetPosition.y, objetPosition.z);
+        /*Animation to hide*/
+
+        if (objet.GetComponent<HideOutScript>().getHideOutType() == HideOutType.WARDROBE)
+        {
+            activeCamera = objet.GetComponentInChildren<Camera>();
+            activeCamera.enabled = true;
+            transform.GetComponentInChildren<Camera>().enabled = false;
+        }
     }
 
 
 
     private void getOut()
     {
+        transform.GetComponentInChildren<Camera>().enabled = true;
+        activeCamera.enabled = false;
         gameController.toggleHidden();
         Debug.Log("getOut");
         /*Animation to hide*/
