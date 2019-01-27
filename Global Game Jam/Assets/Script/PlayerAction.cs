@@ -60,12 +60,9 @@ public class PlayerAction : MonoBehaviour
             }
             else
             {
-                if (memory)
+                if (cardboard)
                 {
-                    Drop();
-                }
-                else if (cardboard)
-                {
+                    lastAnimation = animationTime;
                     Throw();
                 }
                 else
@@ -76,7 +73,12 @@ public class PlayerAction : MonoBehaviour
                     if (Physics.Raycast(ray, out hit, distance))
                     {
                         Debug.Log(hit.transform);
-                        if (!day && hit.transform.CompareTag("memories"))
+                        if (!day && memory && hit.transform.CompareTag("memorySlot"))
+                        {
+                            lastAnimation = animationTime;
+                            PutInSlot(hit.transform.gameObject);
+                        }
+                        else if (!day && hit.transform.CompareTag("memories"))
                         {
                             lastAnimation = animationTime;
                             PickUpObject(hit.transform.gameObject);
@@ -90,6 +92,13 @@ public class PlayerAction : MonoBehaviour
                         {
                             lastAnimation = animationTime;
                             PickUpCardboard(hit.transform.gameObject);
+                        }
+                    }
+                    else
+                    {
+                        if (!day && memory)
+                        {
+                            Drop();
                         }
                     }
                 }
@@ -125,6 +134,17 @@ public class PlayerAction : MonoBehaviour
         memory.transform.parent = null;
         memory.transform.position = transform.position;
         memory = null;
+    }
+
+    private void PutInSlot(GameObject objet)
+    {
+        Debug.Log("Put in slot");
+        /*Animation to hide*/
+        // objet.GetComponent<>().getPutText();
+        if (objet.GetComponent<MemorySlot>().SetNightMemory(memory))
+            {
+            memory = null;
+        }
     }
 
     private void Throw()
