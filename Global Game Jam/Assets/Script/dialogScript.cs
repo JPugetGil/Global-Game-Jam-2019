@@ -62,8 +62,9 @@ public class dialogScript : MonoBehaviour
 
     public void setText(string p_text)
     {
-        active = true;
+        textContainer.text = "";
         letterIndex = 0;
         text = p_text;
+        active = true;
     }
 }
