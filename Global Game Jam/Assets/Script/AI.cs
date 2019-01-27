@@ -16,9 +16,8 @@ public class AI : MonoBehaviour
     private float waitTime = 1.5f;
     private float lastAnimation = 0.0f;
 
-
     [SerializeField]
-    private float rotationSpeed = 3;
+    private float rotationSpeed = 4;
 
     [SerializeField]
     private GameObject gameControllerObject;
@@ -37,6 +36,8 @@ public class AI : MonoBehaviour
         DayNightController.Instance.AddNightObject(gameObject);
         lastPos = agent.transform.position;
 
+
+
         print("Je suis né pour te hanter...");
     }
 
@@ -47,26 +48,32 @@ public class AI : MonoBehaviour
             Vector3 playerPos = GameObject.FindGameObjectWithTag("Player").transform.position;
 
             Ray ray = new Ray(ghostPos, transform.forward);
+            Ray ray2 = new Ray(ghostPos, transform.right);
             Debug.DrawRay(ghostPos, transform.forward, Color.yellow);
+            Debug.DrawRay(ghostPos, transform.right, Color.yellow);
 
-            // UPDATE THE DISTANCE
-            distanceWithPlayer = Vector3.Distance(ghostPos, playerPos);
 
-        if (!gameController.getIsHidden() && canSeeThePlayer(ray))
+        // UPDATE THE DISTANCE
+        distanceWithPlayer = Vector3.Distance(ghostPos, playerPos);
+        //Debug.Log("Can see : " + canSeeThePlayer(ray));
+        //Debug.Log("Is Hidden : " + gameController.getIsHidden());
+        if (!gameController.getIsHidden() && canSeeThePlayer(ray, ray2)) 
         {
             //UPDATE THE PROBABILITY
             probability = updateProbability();
 
-            if (Random.Range(0, 1) <= probability)
+            if (Random.Range(0.0f, 1.0f) <= probability)
             {
                 agent.destination = playerPos;
             }
+
         } else
         {
             // CHOISIR UNE DESTINATION DE MANIERE RANDOM
             transform.Rotate(new Vector3(0, rotationSpeed, 0));
             if (lastPos == ghostPos)
-            { 
+            {
+                
                 if (lastAnimation <= 0)
                 {
                     dest = getRandomPosition(); 
@@ -84,8 +91,8 @@ public class AI : MonoBehaviour
             {
                 lastPos = ghostPos;
                 lastAnimation = waitTime;
-            } 
-
+            }
+            
             rotationSpeed = 3 + GameController.Instance.getMatchingMemoryCount() * 0.25f;
             speed = 3 + GameController.Instance.getMatchingMemoryCount() * 0.15f;
         }
@@ -93,25 +100,22 @@ public class AI : MonoBehaviour
 
     double updateProbability()
     {
-        if (distanceWithPlayer < 4)
+        if (distanceWithPlayer < 6)
         {
             return 1.0;
         }
-        else if (distanceWithPlayer < 7.33)
+        else 
         {
-            return (distanceWithPlayer / (-10)) + 1.4;
-        }
-        else
-        {
-            return (distanceWithPlayer / (-4)) + 2.5;
+            return (distanceWithPlayer / (-16)) + 1.375;
         }
     }
 
-    bool canSeeThePlayer(Ray ray)
+    bool canSeeThePlayer(Ray ray, Ray ray2)
     {
         RaycastHit hit;
-        if(Physics.Raycast(ray, out hit, 7.0F))
-        {
+        if(Physics.Raycast(ray, out hit, 22.0F, 10) || Physics.Raycast(ray, out hit, 22.0F, 10))
+        { 
+            Debug.Log("I see: " + hit.transform.tag);
             return (hit.transform.CompareTag("Player"));
         }
         return false;
