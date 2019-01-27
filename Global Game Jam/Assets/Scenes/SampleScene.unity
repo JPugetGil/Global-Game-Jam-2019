@@ -24,7 +24,7 @@ RenderSettings:
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
-  m_AmbientMode: 0
+  m_AmbientMode: 3
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
   m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
   m_HaloStrength: 0.5
@@ -171,7 +171,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 133092809}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0.22}
+  m_LocalPosition: {x: 0, y: 1.131, z: 0.22}
   m_LocalScale: {x: 1, y: 3.32, z: 1}
   m_Children:
   - {fileID: 1445258883}
@@ -382,7 +382,7 @@ CharacterController:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Height: 2
+  m_Height: 2.5
   m_Radius: 0.5
   m_SlopeLimit: 45
   m_StepOffset: 0.3
@@ -401,8 +401,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f33f63af63a7a3e4f9f71a1d8f0ea98b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
-  runSpeed: 8
+  speed: 8
+  runSpeed: 16
   gameControllerObject: {fileID: 1839342991}
   rotateSpeed: 3
 --- !u!114 &376049435
@@ -417,9 +417,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 819676d20cfabc344bb509c8d217174a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animationTime: 2
+  animationTime: 0.1
   gameControllerObject: {fileID: 1839342991}
   canvas: {fileID: 1775253756}
+  distance: 3
   memorySlot: {fileID: 1445258883}
 --- !u!23 &376049436
 MeshRenderer:
@@ -483,7 +484,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1.6565605, y: 2.76}
+  m_AnchoredPosition: {x: -3.89, y: 4.41}
   m_SizeDelta: {x: 20, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &376049439
@@ -701,9 +702,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 893879328}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 944bea9041930d94295861420eb6af96, type: 3}
+  m_Script: {fileID: 11500000, guid: 8567702bf0e80f4448d4c3b454110dfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  readingSpeed: 0.1
 --- !u!1 &1445258882
 GameObject:
   m_ObjectHideFlags: 0
@@ -995,7 +997,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 11415388, guid: e54840c748752784da779489681b4ac0, type: 3}
       propertyPath: startTime
-      value: 19.8
+      value: 6.2
       objectReference: {fileID: 0}
     - target: {fileID: 11415388, guid: e54840c748752784da779489681b4ac0, type: 3}
       propertyPath: daySpeedMultiplier
@@ -1050,7 +1052,7 @@ MonoBehaviour:
   centerText: {fileID: 1922019059}
   dayMemoryPrefab: {fileID: 7676968395877287611, guid: f04d0db4c7899374c809129512454c87,
     type: 3}
-  nightMemoryPrefab: {fileID: 7676968395877287611, guid: f04d0db4c7899374c809129512454c87,
+  nightMemoryPrefab: {fileID: 7676968395877287611, guid: 66e3e0be06129291cb91e80604a8baaa,
     type: 3}
   memoryImages:
   - {fileID: 2800000, guid: ddb207d7fe9e52c4082281f2c440dd21, type: 3}
