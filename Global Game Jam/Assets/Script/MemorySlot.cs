@@ -21,7 +21,7 @@ public class MemorySlot : MonoBehaviour
 
     }
 
-    void setDayMemory(GameObject obj)
+    public void SetDayMemory(GameObject obj)
     {
         if (nightMemory)
         {
@@ -30,16 +30,18 @@ public class MemorySlot : MonoBehaviour
         else
         {
             dayMemory = obj;
+            dayMemory.transform.parent = transform;
+            dayMemory.transform.localPosition = Vector3.zero;
         }
     }
 
-    private Texture getMemoryTexture(GameObject obj)
+    private Texture GetMemoryTexture(GameObject obj)
     {
         Renderer renderer = obj.transform.Find("Frame").GetComponent<Renderer>();
         return renderer.material.GetTexture("_MainTex");
     }
 
-    bool setNightMemory(GameObject obj)
+    public bool SetNightMemory(GameObject obj)
     {
         if (nightMemory)
         {
@@ -48,17 +50,23 @@ public class MemorySlot : MonoBehaviour
         }
         else
         {
-            if (getMemoryTexture(dayMemory) != getMemoryTexture(obj))
+            if (GetMemoryTexture(dayMemory) != GetMemoryTexture(obj))
             {
-                Debug.LogError("Memories do not Match");
+                Debug.LogError("Memories do not match");
                 return false;
             }
             else
             {
+                Debug.LogError("Memories match!");
                 nightMemory = obj;
-                if (matchingEffect) {
+                nightMemory.transform.parent = transform;
+                nightMemory.transform.localPosition = Vector3.zero;
+
+                if (matchingEffect)
+                {
                     matchingEffect.Play();
                 }
+
                 return true;
             }
         }
