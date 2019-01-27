@@ -8,7 +8,7 @@ public class MouseLook : MonoBehaviour
     private float sensitivity = 5.0f, smoothing = 2.0f;
 
     [SerializeField]
-    private int maxYAxis = 90, minYAxis = 80;
+    private int maxYAxis = 80, minYAxis = 90;
 
     [SerializeField]
     private int maxHiddenYAxis = 45, minHiddenYAxis = 45;
@@ -23,40 +23,35 @@ public class MouseLook : MonoBehaviour
 
     Vector2 mouseLook, smoothV;
 
-    GameObject character;
+    Transform character;
 
     // Start is called before the first frame update
     void Start()
     {
         gameController = gameControllerObject.GetComponent<GameController>();
-        character = transform.parent.gameObject;
+        character = transform.parent.gameObject.transform;
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         var inputs = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y"));
-
-        inputs = Vector2.Scale(inputs, new Vector2(sensitivity * smoothing, sensitivity * smoothing));
+        inputs = Vector2.Scale(inputs, new Vector2(sensitivity * smoothing * Time.deltaTime, sensitivity * smoothing * Time.deltaTime));
         smoothV.x = Mathf.Lerp(smoothV.x, inputs.x, 1f / smoothing);
         smoothV.y = Mathf.Lerp(smoothV.y, inputs.y, 1f / smoothing);
         mouseLook += smoothV;
 
         //We limit the player Y axis (think about his neck)
-        float valueConstrainedY = Mathf.Max(-mouseLook.y, -maxYAxis);
-        valueConstrainedY = Mathf.Min(valueConstrainedY, minYAxis);
+        mouseLook.y = Mathf.Clamp(mouseLook.y, -minYAxis, maxYAxis);
 
-        float valueConstrainedX = mouseLook.x;
         if (gameController.getIsHidden())
         {
-            valueConstrainedX = Mathf.Max(valueConstrainedX, -maxHiddenXAxis);
-            valueConstrainedX = Mathf.Min(valueConstrainedX, minHiddenXAxis);
-            valueConstrainedY = Mathf.Max(valueConstrainedY, -maxHiddenYAxis);
-            valueConstrainedY = Mathf.Min(valueConstrainedY, minHiddenYAxis);
+            mouseLook.x = Mathf.Clamp(mouseLook.x, -minHiddenXAxis , maxHiddenXAxis);
+            mouseLook.y = Mathf.Clamp(mouseLook.y, -minHiddenYAxis, maxHiddenYAxis);
         }
 
-        transform.localRotation = Quaternion.AngleAxis(valueConstrainedY, Vector3.right);
-        character.transform.localRotation = Quaternion.AngleAxis(valueConstrainedX, character.transform.up);
+        transform.localRotation = Quaternion.AngleAxis(-mouseLook.y, Vector3.right);
+        character.localRotation = Quaternion.AngleAxis(mouseLook.x, character.up);
     }
 
 }
