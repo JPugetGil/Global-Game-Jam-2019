@@ -102,6 +102,7 @@ public class PlayerAction : MonoBehaviour
                         else if (hit.transform.CompareTag("bed"))
                         {
                             lastAnimation = animationTime;
+                            Debug.Log("BED!!");
                             GameController.Instance.Forward();
                         }
                     }
@@ -170,7 +171,7 @@ public class PlayerAction : MonoBehaviour
         cardboard = null;
     }
 
-    private void Hide(GameObject objet)
+private void Hide(GameObject objet)
     {
         gameController.toggleHidden();
         //TODO stop moving
@@ -181,7 +182,7 @@ public class PlayerAction : MonoBehaviour
 
         positionWhenGetOut = transform.position;
         transform.position = new Vector3(objetPosition.x, objetPosition.y, objetPosition.z);
-        /*Animation to hide*/
+        /* Animation to hide */
 
         if (objet.GetComponent<HideOutScript>().getHideOutType() == HideOutType.WARDROBE)
         {
@@ -196,10 +197,14 @@ public class PlayerAction : MonoBehaviour
     private void getOut()
     {
         transform.GetComponentInChildren<Camera>().enabled = true;
-        activeCamera.enabled = false;
+        if (activeCamera != null)
+        {
+            activeCamera.enabled = false;
+        }
+        activeCamera = null;
         gameController.toggleHidden();
         Debug.Log("getOut");
-        /*Animation to hide*/
+        /* Animation to hide */
         Physics.IgnoreLayerCollision(9, 10, false);
         transform.position = positionWhenGetOut;
     }
