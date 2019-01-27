@@ -89,6 +89,16 @@ public class DayNightControllerEditor : Editor {
 		myTarget.twinkleFrequency = EditorGUILayout.FloatField (myTarget.twinkleFrequency);
 		EditorGUILayout.EndHorizontal();
 
+		EditorGUILayout.BeginHorizontal ();
+		EditorGUILayout.LabelField("Ambient Light Day : ");
+		myTarget.ambientDay = EditorGUILayout.FloatField (myTarget.ambientDay);
+		EditorGUILayout.EndHorizontal();
+
+		EditorGUILayout.BeginHorizontal ();
+		EditorGUILayout.LabelField("Ambient Light Night : ");
+		myTarget.ambientNight = EditorGUILayout.FloatField (myTarget.ambientNight);
+		EditorGUILayout.EndHorizontal();
+
 		if (!myTarget.cameraToFollow) {
 			EditorGUILayout.BeginHorizontal ();
 			EditorGUILayout.HelpBox ("If not assigned then the main camera will be used",MessageType.Warning);
