@@ -200,16 +200,14 @@ public class GameController : MonoBehaviour
         Spawn();
     }
 
-    public void Spawn() {
+    public void Spawn()
+    {
         player.transform.position = spawnPoint.transform.position;
         player.transform.rotation = spawnPoint.transform.rotation;
 
-            Debug.Log("find ps");
-
-        ParticleSystem[] ps = spawnPoint.GetComponentsInChildren<ParticleSystem>();
-for (int i = 0; i < ps.Length; i++)
-{
-            Debug.Log("play ps");
+        ParticleSystem[] ps = spawnPoint.transform.GetComponentsInChildren<ParticleSystem>(true);
+        for (int i = 0; i < ps.Length; i++)
+        {
             ps[i].Play();
         };
     }
