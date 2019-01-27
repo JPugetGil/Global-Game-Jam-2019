@@ -32,6 +32,7 @@ public class MemorySlot : MonoBehaviour
             dayMemory = obj;
             dayMemory.transform.parent = transform;
             dayMemory.transform.localPosition = Vector3.zero;
+            dayMemory.transform.localRotation = Quaternion.identity;
         }
     }
 
@@ -61,6 +62,7 @@ public class MemorySlot : MonoBehaviour
                 nightMemory = obj;
                 nightMemory.transform.parent = transform;
                 nightMemory.transform.localPosition = Vector3.zero;
+                nightMemory.transform.localRotation = Quaternion.identity;
 
                 if (matchingEffect)
                 {
@@ -70,5 +72,14 @@ public class MemorySlot : MonoBehaviour
                 return true;
             }
         }
+    }
+
+    public GameObject GetDayMemory()
+    {
+        return dayMemory;
+    }
+    public bool IsMatched()
+    {
+        return (dayMemory && nightMemory);
     }
 }

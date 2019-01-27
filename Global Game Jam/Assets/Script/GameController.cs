@@ -83,22 +83,33 @@ public class GameController : MonoBehaviour
     void Update()
     {
 
-        int hour = (int)Mathf.Floor(DayNightController.Instance.GetCurrentTime());
-        int min = (int)((DayNightController.Instance.GetCurrentTime() % 1) * 60);
-        timeText.SetText(string.Format("Day: {0}, Time: {1}:{2}", DayNightController.Instance.getCurrentDay(), hour, min));
 
 
         matchingMemoryCount = 0;
-        for (int i = 0; i < memoryImages.Count; i++)
-        {
-            Vector3 dayPos = dayMemories[i].position;
-            Vector3 nightPos = nightMemories[i].position;
-            float distance = (dayPos - nightPos).magnitude;
-            if (distance < 2.0f)
-            {
-                matchingMemoryCount += 1;
+
+        foreach(GameObject slot in memorySlots) {
+            MemorySlot memslot = slot.GetComponent<MemorySlot>();
+            if(memslot.GetDayMemory()) {
+                if(memslot.IsMatched()) {
+                    matchingMemoryCount++;
+                }
             }
         }
+
+        int hour = (int)Mathf.Floor(DayNightController.Instance.GetCurrentTime());
+        int min = (int)((DayNightController.Instance.GetCurrentTime() % 1) * 60);
+        timeText.SetText(string.Format("Day: {0}, Time: {1}:{2} - {3}/{4}", DayNightController.Instance.getCurrentDay(), hour, min, matchingMemoryCount, memoryImages.Count));
+
+        // for (int i = 0; i < memoryImages.Count; i++)
+        // {
+        //     Vector3 dayPos = dayMemories[i].position;
+        //     Vector3 nightPos = nightMemories[i].position;
+        //     float distance = (dayPos - nightPos).magnitude;
+        //     if (distance < 2.0f)
+        //     {
+        //         matchingMemoryCount += 1;
+        //     }
+        // }
 
         if (matchingMemoryCount == memoryImages.Count && DayNightController.Instance.getCurrentDay() < 5)
         {
