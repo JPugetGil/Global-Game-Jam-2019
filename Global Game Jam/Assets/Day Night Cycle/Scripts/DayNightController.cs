@@ -57,6 +57,8 @@ public class DayNightController : MonoBehaviour
 
     public bool paused;
 
+public float ambientDay = 0.6f;
+public float ambientNight = 0.05f;
     // Use this for initialization
     void Start()
     {
@@ -98,15 +100,17 @@ public class DayNightController : MonoBehaviour
         //Gets The timeString;
         CalculateTime();
 
-		 bool day = (DayNightController.Instance.GetCurrentTime() > 6) && (DayNightController.Instance.GetCurrentTime() < 18);
-		 foreach (var obj in nightObjects)
-		 {
-			 obj.SetActive(!day);
-		 }
-		 foreach (var obj in dayObjects)
-		 {
-			 obj.SetActive(day);
-		 }
+        bool day = (DayNightController.Instance.GetCurrentTime() > 6) && (DayNightController.Instance.GetCurrentTime() < 18);
+        foreach (var obj in nightObjects)
+        {
+            obj.SetActive(!day);
+        }
+        foreach (var obj in dayObjects)
+        {
+            obj.SetActive(day);
+        }
+
+
     }
 
     void ControlLight()
@@ -122,11 +126,15 @@ public class DayNightController : MonoBehaviour
         //This basically turn on and off the sun light based on day / night
         if (controlIntensity && sunLight && (currentTime >= 18.0f || currentTime <= 5.5f))
         {
-            sunLight.intensity = Mathf.MoveTowards(sunLight.intensity, 0.0f, Time.deltaTime * daySpeedMultiplier * 10.0f);
+            sunLight.intensity = Mathf.MoveTowards(sunLight.intensity, 0.0f, Time.deltaTime * daySpeedMultiplier * 1.0f);
+            float r = Mathf.Max(ambientNight, sunLight.intensity);
+            RenderSettings.ambientLight = new Color(r, r, r);
         }
         else if (controlIntensity && sunLight)
         {
-            sunLight.intensity = Mathf.MoveTowards(sunLight.intensity, 1.0f, Time.deltaTime * daySpeedMultiplier * 10.0f);
+            sunLight.intensity = Mathf.MoveTowards(sunLight.intensity, 1.0f, Time.deltaTime * daySpeedMultiplier * 1.0f);
+            float r = Mathf.Min(ambientDay, sunLight.intensity);
+            RenderSettings.ambientLight = new Color(r, r, r);
         }
 
     }

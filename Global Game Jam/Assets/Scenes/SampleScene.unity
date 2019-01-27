@@ -452,7 +452,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 133092809}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0.22}
+  m_LocalPosition: {x: 0, y: 0.731, z: 0.22}
   m_LocalScale: {x: 1, y: 3.32, z: 1}
   m_Children:
   - {fileID: 1445258883}
@@ -1900,8 +1900,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f33f63af63a7a3e4f9f71a1d8f0ea98b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
-  runSpeed: 8
+  speed: 8
+  runSpeed: 16
   gameControllerObject: {fileID: 1839342991}
   rotateSpeed: 3
 --- !u!114 &376049435
@@ -1916,9 +1916,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 819676d20cfabc344bb509c8d217174a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animationTime: 2
+  animationTime: 0.1
   gameControllerObject: {fileID: 1839342991}
   canvas: {fileID: 1775253756}
+  distance: 3
   memorySlot: {fileID: 1445258883}
 --- !u!23 &376049436
 MeshRenderer:
@@ -1982,7 +1983,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1.6565605, y: 2.76}
+  m_AnchoredPosition: {x: -3.89, y: 2.76}
   m_SizeDelta: {x: 20, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &376049439
@@ -4100,13 +4101,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 944bea9041930d94295861420eb6af96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  readingSpeed: 0.05
 --- !u!1001 &906072327
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7454,7 +7448,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 11415388, guid: e54840c748752784da779489681b4ac0, type: 3}
       propertyPath: startTime
-      value: 19.8
+      value: 6.2
       objectReference: {fileID: 0}
     - target: {fileID: 11415388, guid: e54840c748752784da779489681b4ac0, type: 3}
       propertyPath: daySpeedMultiplier
@@ -9286,7 +9280,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotationSpeed: 3
   gameControllerObject: {fileID: 1839342991}
-  dayNight: {fileID: 1608334029}
+  dayNight: {fileID: 0}
 --- !u!23 &2111718144
 MeshRenderer:
   m_ObjectHideFlags: 0

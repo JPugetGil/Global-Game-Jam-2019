@@ -12,7 +12,7 @@ public class PlayerAction : MonoBehaviour
     private GameObject gameControllerObject, canvas;
 
     private float lastAnimation = 0.0f;
-
+    public float distance = 5.0f;
     private bool isHidden = false;
     private Rigidbody rigidBody;
 
@@ -40,56 +40,53 @@ public class PlayerAction : MonoBehaviour
         }
 
         bool day = (DayNightController.Instance.GetCurrentTime() > 6) && (DayNightController.Instance.GetCurrentTime() < 18);
-        if (day)
+        if (Input.GetButtonUp("Fire1") && lastAnimation <= 0.0f)
         {
-            if (Input.GetButtonUp("Fire1") && lastAnimation <= 0.0f)
+            Debug.Log("FIRE!");
+
+            if (gameController.getIsHidden())
             {
-                Debug.Log("FIRE!");
-
-
-                if (gameController.getIsHidden())
-                {
-                    lastAnimation = animationTime;
-                    getOut();
-                }
-                else if (memory)
-                {
-                    Drop();
-                }
-                else
-                {
-                    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                    RaycastHit hit;
-
-                    if (Physics.Raycast(ray, out hit, 2))
-                    {
-                        if (hit.transform.CompareTag("memories"))
-                        {
-                            lastAnimation = animationTime;
-                            PickUpObject(hit.transform.gameObject);
-                        }
-                        else if (hit.transform.CompareTag("hideout"))
-                        {
-                            lastAnimation = animationTime;
-                            Hide(hit.transform.gameObject);
-                        }
-                        else if (hit.transform.CompareTag("spot"))
-                        {
-                            lastAnimation = animationTime;
-                            Put(hit.transform.gameObject);
-                        }
-                    }
-                }
+                lastAnimation = animationTime;
+                getOut();
             }
-
-        }
-        else
-        {
-            if (memory)
+            else if (memory)
             {
                 Drop();
             }
+            else if (day)
+            {
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                RaycastHit hit;
+
+                if (Physics.Raycast(ray, out hit, distance))
+                {
+                    Debug.Log(hit.transform);
+                    if (hit.transform.CompareTag("memories"))
+                    {
+                        lastAnimation = animationTime;
+                        PickUpObject(hit.transform.gameObject);
+                    }
+                    else if (hit.transform.CompareTag("hideout"))
+                    {
+                        lastAnimation = animationTime;
+                        Hide(hit.transform.gameObject);
+                    }
+                    else if (hit.transform.CompareTag("spot"))
+                    {
+                        lastAnimation = animationTime;
+                        Put(hit.transform.gameObject);
+                    }
+                }
+            }
         }
+
+
+
+        if (!day && memory)
+        {
+            Drop();
+        }
+
     }
     private void PickUpObject(GameObject objet)
     {
