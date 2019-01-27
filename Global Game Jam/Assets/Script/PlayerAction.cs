@@ -71,7 +71,7 @@ public class PlayerAction : MonoBehaviour
                         lastAnimation = animationTime;
                         Hide(hit.transform.gameObject);
                     }
-                    else if (hit.transform.CompareTag("spot"))
+                    else if (hit.transform.CompareTag("cardboard"))
                     {
                         lastAnimation = animationTime;
                         Put(hit.transform.gameObject);
