@@ -12,7 +12,7 @@ public class AI : MonoBehaviour
     private double probability;
 
     [SerializeField]
-    private float rotationSpeed = 1;
+    private float rotationSpeed = 3;
 
     [SerializeField]
     private GameObject gameControllerObject;
@@ -39,8 +39,6 @@ public class AI : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-
-
             Vector3 ghostPos = GameObject.FindGameObjectWithTag("ghost").transform.position;
             Vector3 playerPos = GameObject.FindGameObjectWithTag("Player").transform.position;
 
@@ -62,10 +60,12 @@ public class AI : MonoBehaviour
             }
             else
             {
+                // CHOISIR UNE DESTINATION DE MANIERE RANDOM OU NAVIGUER SUR LA CARTE
                 transform.Rotate(new Vector3(0, rotationSpeed, 0));
             }
 
-        
+            rotationSpeed = 3 + GameController.Instance.getMatchingMemoryCount()*0.25f;
+            speed = 3 + GameController.Instance.getMatchingMemoryCount() * 0.15f;
     }
 
     double updateProbability()
@@ -93,8 +93,5 @@ public class AI : MonoBehaviour
         }
         return false;
     }
-
-
-    
-    
+ 
 } 
