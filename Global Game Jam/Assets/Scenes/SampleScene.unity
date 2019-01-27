@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.43667677, g: 0.48427254, b: 0.56452394, a: 1}
+  m_IndirectSpecularColor: {r: 0.43667647, g: 0.48427212, b: 0.56452334, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -171,7 +171,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 133092809}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.731, z: 0.22}
+  m_LocalPosition: {x: 0, y: 1.131, z: 0.22}
   m_LocalScale: {x: 1, y: 3.32, z: 1}
   m_Children:
   - {fileID: 1445258883}
@@ -382,7 +382,7 @@ CharacterController:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Height: 2
+  m_Height: 2.5
   m_Radius: 0.5
   m_SlopeLimit: 45
   m_StepOffset: 0.3
@@ -484,7 +484,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -3.89, y: 2.76}
+  m_AnchoredPosition: {x: -3.89, y: 3.7}
   m_SizeDelta: {x: 20, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &376049439
@@ -1051,7 +1051,7 @@ MonoBehaviour:
   centerText: {fileID: 1922019059}
   dayMemoryPrefab: {fileID: 7676968395877287611, guid: f04d0db4c7899374c809129512454c87,
     type: 3}
-  nightMemoryPrefab: {fileID: 7676968395877287611, guid: f04d0db4c7899374c809129512454c87,
+  nightMemoryPrefab: {fileID: 7676968395877287611, guid: 66e3e0be06129291cb91e80604a8baaa,
     type: 3}
   memoryImages:
   - {fileID: 2800000, guid: ddb207d7fe9e52c4082281f2c440dd21, type: 3}
