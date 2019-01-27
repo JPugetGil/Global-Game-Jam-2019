@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System;
+
 public class GameController : MonoBehaviour
 {
 
@@ -34,18 +36,26 @@ public class GameController : MonoBehaviour
     // Start is called before the first frame update
     private int matchingMemoryCount;
 
+    private GameObject[] dayMemorySlots;
+
     Vector3 RandomPosition()
     {
-        Vector3 position = new Vector3(Random.Range(-10.0f, 10.0f), 0, Random.Range(-10.0f, 10.0f));
+        Vector3 position = new Vector3(UnityEngine.Random.Range(-10.0f, 10.0f), 0, UnityEngine.Random.Range(-10.0f, 10.0f));
         // check placement
         return position;
     }
     void Start()
     {
-        for (int i = 0; i < memoryImages.Count; i++)
+        if (dayMemorySlots == null) {
+            dayMemorySlots = GameObject.FindGameObjectsWithTag("memorySlot");
+            Debug.Log(String.Format("Found {0} memory slots.", dayMemorySlots.Length));
+        }
+
+        int count = Math.Min(dayMemorySlots.Length, memoryImages.Count);
+        for (int i = 0; i < count; i++)
         {
             Transform dayMemory = (Transform)Instantiate(dayMemoryPrefab).transform;
-            PlaceMemory(dayMemory, transform.position + RandomPosition(), memoryImages[i]);
+            PlaceMemory(dayMemory, dayMemorySlots[i].transform.position, memoryImages[i]);
             dayMemories.Add(dayMemory);
             DayNightController.Instance.AddDayObject(dayMemory.gameObject);
 
