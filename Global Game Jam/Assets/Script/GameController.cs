@@ -4,6 +4,11 @@ using UnityEngine;
 using TMPro;
 using System;
 
+static class RandomExtensions
+{
+
+};
+
 public class GameController : MonoBehaviour
 {
 
@@ -48,11 +53,25 @@ public class GameController : MonoBehaviour
         // check placement
         return position;
     }
+
+    public void Shuffle<T> (System.Random rng, T[] array)
+    {
+        int n = array.Length;
+        while (n > 1) 
+        {
+            int k = rng.Next(n--);
+            T temp = array[n];
+            array[n] = array[k];
+            array[k] = temp;
+        }
+    }
+
     void Start()
     {
         if (memorySlots == null)
         {
             memorySlots = GameObject.FindGameObjectsWithTag("memorySlot");
+            Shuffle(new System.Random(), memorySlots);
             Debug.Log(String.Format("Found {0} memory slots.", memorySlots.Length));
         }
 
