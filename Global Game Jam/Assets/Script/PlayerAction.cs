@@ -32,7 +32,7 @@ public class PlayerAction : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         bool day = (DayNightController.Instance.isDay());
 
@@ -99,9 +99,6 @@ public class PlayerAction : MonoBehaviour
         objet.transform.parent = memorySlot.transform;
         objet.transform.localPosition = Vector3.zero;
         /*Move hand */
-        // objet.GetComponent<>().getPickUpText();
-
-
         string text = gameController.memoryText[DayNightController.Instance.getSpecificIndex(objet)];
         textContainter.setText(text);
     }
