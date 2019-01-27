@@ -21,6 +21,7 @@ public class PlayerAction : MonoBehaviour
     private dialogScript textContainter;
 
     private GameObject memory;
+    private GameObject cardboard;
 
     public Transform memorySlot;
     // Start is called before the first frame update
@@ -47,7 +48,7 @@ public class PlayerAction : MonoBehaviour
             Drop();
         }
 
-       
+
         if (Input.GetButtonUp("Fire1") && lastAnimation <= 0.0f)
         {
             Debug.Log("FIRE!");
@@ -59,9 +60,10 @@ public class PlayerAction : MonoBehaviour
             }
             else
             {
-                if (memory)
+                if (cardboard)
                 {
-                    Drop();
+                    lastAnimation = animationTime;
+                    Throw();
                 }
                 else
                 {
@@ -71,7 +73,12 @@ public class PlayerAction : MonoBehaviour
                     if (Physics.Raycast(ray, out hit, distance))
                     {
                         Debug.Log(hit.transform);
-                        if (!day && hit.transform.CompareTag("memories"))
+                        if (!day && memory && hit.transform.CompareTag("memorySlot"))
+                        {
+                            lastAnimation = animationTime;
+                            PutInSlot(hit.transform.gameObject);
+                        }
+                        else if (!day && hit.transform.CompareTag("memories"))
                         {
                             lastAnimation = animationTime;
                             PickUpObject(hit.transform.gameObject);
@@ -84,15 +91,23 @@ public class PlayerAction : MonoBehaviour
                         else if (hit.transform.CompareTag("cardboard"))
                         {
                             lastAnimation = animationTime;
-                            Put(hit.transform.gameObject);
+                            PickUpCardboard(hit.transform.gameObject);
                         }
                     }
                 }
             }
         }
+
+        if (Input.GetButtonUp("Fire2"))
+        {
+            if (!day && memory)
+            {
+                Drop();
+            }
+        }
     }
 
-    private void PickUpObject(GameObject objet)
+        private void PickUpObject(GameObject objet)
     {
         Debug.Log("Try to pick an object");
         memory = objet;
@@ -103,13 +118,14 @@ public class PlayerAction : MonoBehaviour
         textContainter.setText(text);
     }
 
-    private void Put(GameObject objet)
+    private void PickUpCardboard(GameObject objet)
     {
-        Debug.Log("Put");
+        Debug.Log("PickUpCardboard");
         /*Animation to hide*/
         // objet.GetComponent<>().getPutText();
-        memory.transform.parent = null;
-        memory.transform.position = transform.position;
+        cardboard = objet;
+        objet.transform.parent = memorySlot.transform;
+        objet.transform.position = Vector3.zero;
     }
     private void Drop()
     {
@@ -119,6 +135,27 @@ public class PlayerAction : MonoBehaviour
         memory.transform.parent = null;
         memory.transform.position = transform.position;
         memory = null;
+    }
+
+    private void PutInSlot(GameObject objet)
+    {
+        Debug.Log("Put in slot");
+        /*Animation to hide*/
+        // objet.GetComponent<>().getPutText();
+        if (objet.GetComponent<MemorySlot>().SetNightMemory(memory))
+            {
+            memory = null;
+        }
+    }
+
+    private void Throw()
+    {
+        Debug.Log("Throw");
+        /*Animation to hide*/
+        // objet.GetComponent<>().getPutText();
+        cardboard.transform.parent = null;
+        cardboard.GetComponent<Rigidbody>().AddForce(new Vector3(0, 0, 100));
+        cardboard = null;
     }
 
     private void Hide(GameObject objet)
