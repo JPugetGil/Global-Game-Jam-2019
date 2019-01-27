@@ -21,6 +21,7 @@ public class PlayerAction : MonoBehaviour
     private dialogScript textContainter;
 
     private GameObject memory;
+    private GameObject cardboard;
 
     public Transform memorySlot;
     // Start is called before the first frame update
@@ -63,6 +64,10 @@ public class PlayerAction : MonoBehaviour
                 {
                     Drop();
                 }
+                else if (cardboard)
+                {
+                    Throw();
+                }
                 else
                 {
                     Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -84,7 +89,7 @@ public class PlayerAction : MonoBehaviour
                         else if (hit.transform.CompareTag("cardboard"))
                         {
                             lastAnimation = animationTime;
-                            Put(hit.transform.gameObject);
+                            PickUpCardboard(hit.transform.gameObject);
                         }
                     }
                 }
@@ -103,13 +108,14 @@ public class PlayerAction : MonoBehaviour
         textContainter.setText(text);
     }
 
-    private void Put(GameObject objet)
+    private void PickUpCardboard(GameObject objet)
     {
-        Debug.Log("Put");
+        Debug.Log("PickUpCardboard");
         /*Animation to hide*/
         // objet.GetComponent<>().getPutText();
-        memory.transform.parent = null;
-        memory.transform.position = transform.position;
+        cardboard = objet;
+        objet.transform.parent = memorySlot.transform;
+        objet.transform.position = Vector3.zero;
     }
     private void Drop()
     {
@@ -119,6 +125,16 @@ public class PlayerAction : MonoBehaviour
         memory.transform.parent = null;
         memory.transform.position = transform.position;
         memory = null;
+    }
+
+    private void Throw()
+    {
+        Debug.Log("Throw");
+        /*Animation to hide*/
+        // objet.GetComponent<>().getPutText();
+        cardboard.transform.parent = null;
+        cardboard.GetComponent<Rigidbody>().AddForce(new Vector3(0, 0, 100));
+        cardboard = null;
     }
 
     private void Hide(GameObject objet)
