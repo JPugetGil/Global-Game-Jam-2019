@@ -81,4 +81,13 @@ public class AI : MonoBehaviour
     {
         return Random.insideUnitCircle * 25;
     }
+
+    public void OnTriggerEnter(Collision col)
+    {
+        Debug.Log(col);
+        if (col.gameObject.CompareTag("Player"))
+        {
+            GameController.Instance.Forward();
+        }
+    }
 } 
