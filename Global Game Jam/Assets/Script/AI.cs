@@ -21,7 +21,7 @@ public class AI : MonoBehaviour
 
     private NavMeshAgent agent;
     private GameController gameController;
-    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -45,25 +45,27 @@ public class AI : MonoBehaviour
 
         // UPDATE THE DISTANCE
         distanceWithPlayer = Vector3.Distance(ghostPos, playerPos);
-        if (!gameController.getIsHidden()) 
+        if (!gameController.getIsHidden())
         {
             agent.destination = playerPos;
-        } else
+        }
+        else
         {
             // CHOISIR UNE DESTINATION DE MANIERE RANDOM
             transform.Rotate(new Vector3(0, rotationSpeed, 0));
             if (lastPos == ghostPos)
             {
-                
+
                 if (lastAnimation <= 0)
                 {
-                    dest = getRandomPosition(); 
+                    dest = getRandomPosition();
                     if (NavMesh.SamplePosition(dest, out NavMeshHit hit, 25f, NavMesh.AllAreas))
                     {
                         agent.destination = hit.position;
                         lastAnimation = waitTime;
                     }
-                } else
+                }
+                else
                 {
                     lastAnimation -= Time.deltaTime;
                 }
@@ -73,7 +75,7 @@ public class AI : MonoBehaviour
                 lastPos = ghostPos;
                 lastAnimation = waitTime;
             }
-            
+
         }
     }
 
@@ -82,12 +84,21 @@ public class AI : MonoBehaviour
         return Random.insideUnitCircle * 25;
     }
 
-    public void OnTriggerEnter(Collision col)
+    void OnCollisionEnter(Collision collision)
     {
-        Debug.Log(col);
-        if (col.gameObject.CompareTag("Player"))
+        Debug.Log("collision");
+        if (collision.gameObject.CompareTag("Player"))
         {
             GameController.Instance.Forward();
         }
     }
-} 
+
+    void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("trigger");
+        if (other.gameObject.CompareTag("Player"))
+        {
+            GameController.Instance.Forward();
+        }
+    }
+}

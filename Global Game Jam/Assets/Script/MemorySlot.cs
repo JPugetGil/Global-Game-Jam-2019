@@ -78,6 +78,12 @@ public class MemorySlot : MonoBehaviour
     {
         return dayMemory;
     }
+
+    public GameObject GetNightMemory()
+    {
+        return nightMemory;
+    }
+
     public bool IsMatched()
     {
         return (dayMemory && nightMemory);

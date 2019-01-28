@@ -121,6 +121,15 @@ public class PlayerAction : MonoBehaviour
 
     private void PickUpObject(GameObject objet)
     {
+        if (memory) {
+            Debug.Log("Already have a memory in my hand");
+            return;
+        }
+        if(gameController.IsMemoryInSlot(objet)) {
+            Debug.Log("Already matched in slot");
+            return;
+        }
+        
         Debug.Log("Try to pick an object");
         memory = objet;
         objet.transform.parent = memorySlot.transform;

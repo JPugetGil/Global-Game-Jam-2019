@@ -209,10 +209,14 @@ public class GameController : MonoBehaviour
         return memoryImages.Count;
     }
 
-    public void Forward() {
-        if (isDay) {
+    public void Forward()
+    {
+        if (isDay)
+        {
             StartNight();
-        } else {
+        }
+        else
+        {
             StartDay();
         }
     }
@@ -220,7 +224,8 @@ public class GameController : MonoBehaviour
     {
         if (!isDay)
         {
-            if (DayNightController.Instance.GetCurrentTime() > 18) {
+            if (DayNightController.Instance.GetCurrentTime() > 18)
+            {
                 DayNightController.Instance.SetCurrentDay(DayNightController.Instance.GetCurrentDay() + 1);
             }
             DayNightController.Instance.SetCurrentTime(6);
@@ -255,5 +260,18 @@ public class GameController : MonoBehaviour
             //ps[i].emission.enabled = true;
             //ps[i].Play(true);
         };
+    }
+
+    public bool IsMemoryInSlot(GameObject memory)
+    {
+        foreach (GameObject slot in memorySlots)
+        {
+            MemorySlot memslot = slot.GetComponent<MemorySlot>();
+            if (memslot.GetDayMemory() == memory || memslot.GetNightMemory() == memory)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }
