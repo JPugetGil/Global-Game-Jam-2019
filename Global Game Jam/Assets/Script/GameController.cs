@@ -39,6 +39,8 @@ public class GameController : MonoBehaviour
     private bool isHidden = false;
     private bool isDay = false;
 
+    public bool playerLock = false;
+
     // Start is called before the first frame update
     private int matchingMemoryCount;
 
@@ -224,6 +226,7 @@ public class GameController : MonoBehaviour
     {
         if (!isDay)
         {
+            isDay = true;
             if (DayNightController.Instance.GetCurrentTime() > 18)
             {
                 DayNightController.Instance.SetCurrentDay(DayNightController.Instance.GetCurrentDay() + 1);
@@ -237,6 +240,7 @@ public class GameController : MonoBehaviour
     {
         if (isDay)
         {
+            isDay = false;
             DayNightController.Instance.SetCurrentTime(18);
             Spawn();
         }
@@ -244,9 +248,11 @@ public class GameController : MonoBehaviour
 
     public void Spawn()
     {
+        Debug.Log("Spawn");
         player.transform.position = spawnPoint.transform.position;
         player.transform.rotation = spawnPoint.transform.rotation;
-
+        Debug.Log(player.transform.position);
+        playerLock = false;
         ParticleSystem[] ps = spawnPoint.transform.GetComponentsInChildren<ParticleSystem>(true);
         for (int i = 0; i < ps.Length; i++)
         {

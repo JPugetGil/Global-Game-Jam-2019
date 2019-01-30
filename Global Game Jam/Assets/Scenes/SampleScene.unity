@@ -1229,7 +1229,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -3.89, y: 4.41}
+  m_AnchoredPosition: {x: -3.89, y: 3.61}
   m_SizeDelta: {x: 20, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &376049439
@@ -2411,7 +2411,6 @@ GameObject:
   m_Component:
   - component: {fileID: 711073136}
   - component: {fileID: 711073139}
-  - component: {fileID: 711073138}
   - component: {fileID: 711073137}
   m_Layer: 10
   m_Name: Camera
@@ -2447,14 +2446,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   profile: {fileID: 11400000, guid: 799c4a4d1ce11f948b8fa32e0fd96d0e, type: 2}
---- !u!81 &711073138
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 711073135}
-  m_Enabled: 1
 --- !u!20 &711073139
 Camera:
   m_ObjectHideFlags: 0
@@ -2939,7 +2930,6 @@ GameObject:
   m_Component:
   - component: {fileID: 819916339}
   - component: {fileID: 819916342}
-  - component: {fileID: 819916341}
   - component: {fileID: 819916340}
   m_Layer: 10
   m_Name: Camera (1)
@@ -2975,14 +2965,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   profile: {fileID: 11400000, guid: 799c4a4d1ce11f948b8fa32e0fd96d0e, type: 2}
---- !u!81 &819916341
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 819916338}
-  m_Enabled: 1
 --- !u!20 &819916342
 Camera:
   m_ObjectHideFlags: 0
@@ -5119,7 +5101,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1606661780}
   - component: {fileID: 1606661783}
-  - component: {fileID: 1606661782}
   - component: {fileID: 1606661781}
   m_Layer: 10
   m_Name: Camera
@@ -5155,14 +5136,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   profile: {fileID: 11400000, guid: 799c4a4d1ce11f948b8fa32e0fd96d0e, type: 2}
---- !u!81 &1606661782
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1606661779}
-  m_Enabled: 1
 --- !u!20 &1606661783
 Camera:
   m_ObjectHideFlags: 0
@@ -5746,7 +5719,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1788881824}
   - component: {fileID: 1788881826}
-  - component: {fileID: 1788881825}
   - component: {fileID: 1788881827}
   m_Layer: 10
   m_Name: Camera
@@ -5769,14 +5741,6 @@ Transform:
   m_Father: {fileID: 2035880029}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90, y: 180, z: 0}
---- !u!81 &1788881825
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1788881823}
-  m_Enabled: 1
 --- !u!20 &1788881826
 Camera:
   m_ObjectHideFlags: 0
@@ -5889,7 +5853,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 11415388, guid: e54840c748752784da779489681b4ac0, type: 3}
       propertyPath: startTime
-      value: 8
+      value: 19.41
       objectReference: {fileID: 0}
     - target: {fileID: 11415388, guid: e54840c748752784da779489681b4ac0, type: 3}
       propertyPath: daySpeedMultiplier
@@ -6067,6 +6031,7 @@ MonoBehaviour:
   memoryText:
   - Holiday 2016
   - Holiday 2019
+  playerLock: 0
   player: {fileID: 376049432}
   spawnPoint: {fileID: 2095452608}
 --- !u!82 &1839342994
@@ -6079,7 +6044,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: bcc4857685b2e9676b70d63c1169b483, type: 3}
+  m_audioClip: {fileID: 8300000, guid: ec188065121f8884d818bffa14d46df7, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -7802,7 +7767,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2095452608}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -21.15, y: 11.73, z: -22.26}
+  m_LocalPosition: {x: -21.15, y: 11.39, z: -22.26}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1407796780}

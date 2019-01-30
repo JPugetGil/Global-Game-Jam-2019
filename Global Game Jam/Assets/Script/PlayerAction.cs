@@ -37,84 +37,87 @@ public class PlayerAction : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        bool day = (DayNightController.Instance.isDay());
-
-        if (lastAnimation > 0)
+        if (!gameController.playerLock)
         {
-            lastAnimation -= Time.deltaTime;
-        }
+            bool day = (DayNightController.Instance.isDay());
 
-        //Drop auto if it's day
-        if (day && memory)
-        {
-            Drop();
-        }
-
-
-        if (Input.GetButtonUp("Fire1") && lastAnimation <= 0.0f)
-        {
-            Debug.Log("FIRE!");
-
-            if (gameController.getIsHidden())
+            if (lastAnimation > 0)
             {
-                lastAnimation = animationTime;
-                getOut();
+                lastAnimation -= Time.deltaTime;
             }
-            else
+
+            //Drop auto if it's day
+            if (day && memory)
             {
-                if (cardboard)
+                Drop();
+            }
+
+
+            if (Input.GetButtonUp("Fire1") && lastAnimation <= 0.0f)
+            {
+                Debug.Log("FIRE!");
+
+                if (gameController.getIsHidden())
                 {
                     lastAnimation = animationTime;
-                    Throw();
+                    getOut();
                 }
                 else
                 {
-                    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                    RaycastHit hit;
-
-                    if (Physics.Raycast(ray, out hit, distance))
+                    if (cardboard)
                     {
-                        Debug.Log(hit.transform);
-                        if (!day && memory && hit.transform.CompareTag("memorySlot"))
+                        lastAnimation = animationTime;
+                        Throw();
+                    }
+                    else
+                    {
+                        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                        RaycastHit hit;
+
+                        if (Physics.Raycast(ray, out hit, distance))
                         {
-                            lastAnimation = animationTime;
-                            PutInSlot(hit.transform.gameObject);
-                        }
-                        else if (!day && hit.transform.CompareTag("memories"))
-                        {
-                            lastAnimation = animationTime;
-                            PickUpObject(hit.transform.gameObject);
-                        }
-                        else if (hit.transform.CompareTag("hideout"))
-                        {
-                            if (memory || cardboard)
+                            Debug.Log(hit.transform);
+                            if (!day && memory && hit.transform.CompareTag("memorySlot"))
                             {
-                                Drop();
+                                lastAnimation = animationTime;
+                                PutInSlot(hit.transform.gameObject);
                             }
-                            lastAnimation = animationTime;
-                            Hide(hit.transform.gameObject);
-                        }
-                        else if (hit.transform.CompareTag("cardboard"))
-                        {
-                            lastAnimation = animationTime;
-                            PickUpCardboard(hit.transform.gameObject);
-                        }
-                        else if (hit.transform.CompareTag("bed"))
-                        {
-                            lastAnimation = animationTime;
-                            Debug.Log("BED!!");
-                            GameController.Instance.Forward();
+                            else if (!day && hit.transform.CompareTag("memories"))
+                            {
+                                lastAnimation = animationTime;
+                                PickUpObject(hit.transform.gameObject);
+                            }
+                            else if (hit.transform.CompareTag("hideout"))
+                            {
+                                if (memory || cardboard)
+                                {
+                                    Drop();
+                                }
+                                lastAnimation = animationTime;
+                                Hide(hit.transform.gameObject);
+                            }
+                            else if (hit.transform.CompareTag("cardboard"))
+                            {
+                                lastAnimation = animationTime;
+                                PickUpCardboard(hit.transform.gameObject);
+                            }
+                            else if (hit.transform.CompareTag("bed"))
+                            {
+                                lastAnimation = animationTime;
+                                Debug.Log("BED!!");
+                                GameController.Instance.Forward();
+                            }
                         }
                     }
                 }
             }
-        }
 
-        if (Input.GetButtonUp("Fire2"))
-        {
-            if (!day && memory)
+            if (Input.GetButtonUp("Fire2"))
             {
-                Drop();
+                if (!day && memory)
+                {
+                    Drop();
+                }
             }
         }
     }
@@ -149,7 +152,7 @@ public class PlayerAction : MonoBehaviour
         objet.transform.position = Vector3.zero;
     }
 
-    private void Drop()
+    public void Drop()
     {
         Debug.Log("Drop");
         /*Animation to hide*/
@@ -180,7 +183,7 @@ public class PlayerAction : MonoBehaviour
         cardboard = null;
     }
 
-private void Hide(GameObject objet)
+    private void Hide(GameObject objet)
     {
         gameController.toggleHidden();
         //TODO stop moving
@@ -203,7 +206,7 @@ private void Hide(GameObject objet)
 
 
 
-    private void getOut()
+    public void getOut()
     {
         transform.GetComponentInChildren<Camera>().enabled = true;
         if (activeCamera != null)
@@ -216,5 +219,10 @@ private void Hide(GameObject objet)
         /* Animation to hide */
         Physics.IgnoreLayerCollision(9, 10, false);
         transform.position = positionWhenGetOut;
+    }
+
+    public bool getMemory()
+    {
+        return memory != null;
     }
 }

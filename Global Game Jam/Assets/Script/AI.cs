@@ -84,21 +84,21 @@ public class AI : MonoBehaviour
         return Random.insideUnitCircle * 25;
     }
 
-    void OnCollisionEnter(Collision collision)
-    {
-        Debug.Log("collision");
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            GameController.Instance.Forward();
-        }
-    }
-
     void OnTriggerEnter(Collider other)
     {
         Debug.Log("trigger");
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player") && !gameController.playerLock && !DayNightController.Instance.isDay() && !gameController.getIsHidden())
         {
-            GameController.Instance.Forward();
+            Debug.Log("trigger2");
+            PlayerAction player = other.transform.GetComponent<PlayerAction>();
+             gameController.playerLock = true;  
+
+            if(player.getMemory())
+            {
+                player.Drop();
+            }
+
+            gameController.Forward();
         }
     }
 }

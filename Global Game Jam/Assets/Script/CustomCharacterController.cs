@@ -37,7 +37,7 @@ public class CustomCharacterController : MonoBehaviour
 
         }
 
-        if(!gameController.getIsHidden())
+        if(!gameController.getIsHidden() && !gameController.playerLock)
         {
             CharacterController controller = GetComponent<CharacterController>();
 

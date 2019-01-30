@@ -46,7 +46,7 @@ public class MouseLook : MonoBehaviour
 
         if (gameController.getIsHidden())
         {
-            mouseLook.x = Mathf.Clamp(mouseLook.x, -minHiddenXAxis , maxHiddenXAxis);
+           // mouseLook.x = Mathf.Clamp(mouseLook.x, -minHiddenXAxis , maxHiddenXAxis);
             mouseLook.y = Mathf.Clamp(mouseLook.y, -minHiddenYAxis, maxHiddenYAxis);
         }
 
