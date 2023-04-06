@@ -17,7 +17,7 @@ Zack will move to his new house. Go with him and find the memories about this ho
 - [Quentin | Game Design, Level Builder](https://www.linkedin.com/in/quentin-fricou-a06b74176/)
 - [Gero | Developer, Game Design](https://geromueller.de)
 - Stefano | Developer, Game Design
-- [Jérôme | Developer, Game Design](https://www.linkedin.com/in/jerome-gil/)
+- [Jey | Developer, Game Design](https://www.linkedin.com/in/jey-puget-gil/)
 - [Benjamin | Music](https://soundcloud.com/amadeours) 
 
 ## Links
